@@ -19,7 +19,7 @@ git clone git@github.com:GoGei/whats-new.git
 ```bash
 127.0.0.1           whats-new.local
 127.0.0.1       api.whats-new.local
-127.0.0.1     admin.whats-new.local
+127.0.0.1   manager.whats-new.local
 ```
 
 ### Add database
