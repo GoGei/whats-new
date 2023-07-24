@@ -74,3 +74,7 @@ class User(CrmMixin, AbstractBaseUser):
     @property
     def label(self):
         return str(self)
+
+    @property
+    def is_manager(self):
+        return self.is_staff or self.is_superuser
