@@ -1,0 +1,24 @@
+{% load static %}
+<!-- plugins:js -->
+<script src="{% static 'admin/staradmin/vendors/js/vendor.bundle.base.js' %}"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script src="{% static 'admin/staradmin/vendors/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'admin/staradmin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js' %}"></script>
+<script src="{% static 'admin/staradmin/vendors/progressbar.js/progressbar.min.js' %}"></script>
+
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="{% static 'admin/staradmin/js/off-canvas.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/hoverable-collapse.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/template.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/settings.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/todolist.js' %}"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="{% static 'admin/staradmin/js/dashboard.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/Chart.roundedBarCharts.js' %}"></script>
+<!-- End custom js for this page-->
+
+{% block extrajs %}
+{% endblock %}
