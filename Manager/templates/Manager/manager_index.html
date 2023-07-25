@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-Manager part
-<a href="{% url 'manager-logout' %}">Logout</a>
-</body>
-</html>
+{% extends 'Manager/base_index.html' %}
+
+{% block breadcrumbs %}
+    Home
+{% endblock %}
+
+{% block content %}
+    Manager part
+    <a href="{% url 'manager-logout' %}">Logout</a>
+{% endblock %}
