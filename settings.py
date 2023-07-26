@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_hosts',
     'django_filters',
     'widget_tweaks',
+    'django_tables2',
     'corsheaders',
     'rest_framework',
     'drf_yasg2',
@@ -189,3 +190,5 @@ CKEDITOR_CONFIGS = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+ITEMS_PER_PAGE = 20
