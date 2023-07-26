@@ -2,42 +2,59 @@
 <html lang="en">
 {% load static %}
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin2 </title>
-    {% include 'Manager/base_css.html' %}
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Star Admin2 </title>
+  {% include 'Manager/base_css.html' %}
 </head>
 <body>
 <div class="container-scroller">
-    <!-- partial:partials/_navbar.html -->
-    {% include 'Manager/base_navbar.html' %}
+  <!-- partial:partials/_navbar.html -->
+  {% include 'Manager/base_navbar.html' %}
 
+  <!-- partial -->
+  <div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.html -->
+    {% include 'Manager/base_settings.html' %}
+
+    {% include 'Manager/base_right_sidebar.html' %}
     <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_settings-panel.html -->
-        {% include 'Manager/base_settings.html' %}
+    <!-- partial:partials/_sidebar.html -->
+    {% include 'Manager/base_sidebar.html' %}
+    <!-- partial -->
+    <div class="main-panel">
+      <div class="content-wrapper">
 
-        {% include 'Manager/base_right_sidebar.html' %}
-        <!-- partial -->
-        <!-- partial:partials/_sidebar.html -->
-        {% include 'Manager/base_sidebar.html' %}
-        <!-- partial -->
-        <div class="main-panel">
-            <div class="content-wrapper">
+
+        <div class="grid-margin stretch-card">
+          <div class="card">
+
+            <div class="card-body">
+              <h4 class="card-title">
+                {% block pagetitle %}
+                {% endblock %}
+              </h4>
+              <p class="card-description">
                 {% block breadcrumbs %}
+                  Home
                 {% endblock %}
-
-                {% block content %}
+                {% block action-area %}
                 {% endblock %}
+              </p>
+              {% block content %}
+              {% endblock %}
             </div>
-            <!-- content-wrapper ends -->
-            <{% include 'Manager/base_footer.html' %}
-            <!-- partial -->
+          </div>
         </div>
-        <!-- main-panel ends -->
+      </div>
+      <!-- content-wrapper ends -->
+      <{% include 'Manager/base_footer.html' %}
+      <!-- partial -->
     </div>
-    <!-- page-body-wrapper ends -->
+    <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
 </div>
 <!-- container-scroller -->
 
