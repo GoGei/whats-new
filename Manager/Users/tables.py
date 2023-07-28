@@ -3,8 +3,10 @@ from core.User.models import User
 
 
 class UserTable(tables.Table):
-    name = tables.TemplateColumn(template_name='Manager/Users/users_table_name_field.html', orderable=True)
-    actions = tables.TemplateColumn(template_name='Manager/Users/users_table_actions.html', orderable=False)
+    name = tables.TemplateColumn(orderable=True, order_by=('first_name', 'last_name'),
+                                 template_name='Manager/Users/users_table_name_field.html')
+    actions = tables.TemplateColumn(orderable=False, attrs={"td": {"style": "width: 15%"}},
+                                    template_name='Manager/Users/users_table_actions.html', )
 
     class Meta:
         model = User
