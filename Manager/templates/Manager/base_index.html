@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
+{% load static i18n %}
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -31,17 +31,29 @@
           <div class="card">
 
             <div class="card-body">
-              <h4 class="card-title">
+              <h1 class="card-title">
                 {% block pagetitle %}
                 {% endblock %}
-              </h4>
-              <p class="card-description">
-                {% block breadcrumbs %}
-                  Home
-                {% endblock %}
-                {% block action-area %}
-                {% endblock %}
-              </p>
+              </h1>
+              <div class="card-description">
+                <div class="row">
+                  <div class="col">
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        {% block breadcrumbs %}
+                          <li class="breadcrumb-item" aria-current="page">
+                            <a href="{% url 'manager-index' %}">{% trans 'Home' %}</a>
+                          </li>
+                        {% endblock %}
+                      </ol>
+                    </nav>
+                  </div>
+                  <div class="col text-right">
+                    {% block action-area %}
+                    {% endblock %}
+                  </div>
+                </div>
+              </div>
               {% block content %}
               {% endblock %}
             </div>

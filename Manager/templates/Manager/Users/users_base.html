@@ -1,10 +1,13 @@
 {% extends 'Manager/base_index.html' %}
+{% load i18n %}
 
 {% block pagetitle %}
-  Users
+  {% trans 'Users' %}
 {% endblock %}
 
 {% block breadcrumbs %}
   {{ block.super }}
-  Users
+  <li class="breadcrumb-item active" aria-current="page">
+    <a href="{% url 'manager-users-list' %}">{% trans 'Users' %}</a>
+  </li>
 {% endblock %}

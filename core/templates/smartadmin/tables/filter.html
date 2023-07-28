@@ -5,7 +5,7 @@
 <form action="{{ filter.action|default:"#" }}" method="get" novalidate class="filter-form">
   {% include 'base_non_field_error_block.html' %}
   {% with filter.body.form as form %}
-    <div class="row">
+    <div class="row d-flex align-items-center">
       <!-- shown fields -->
       <div class="col">
         {% for field in form %}
@@ -17,8 +17,8 @@
 
       <!-- Button trigger modal -->
       <div class="col">
-        <button type="button" class="btn btn-info btn-rounded btn-sm btn-icon"
-                data-toggle="modal" data-target="#filterForm">
+        <button type="button" class="btn btn-info btn-rounded btn-sm btn-icon" data-toggle="modal"
+                data-target="#filterForm">
           <i class="mdi mdi-filter"></i>
         </button>
       </div>
