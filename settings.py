@@ -155,7 +155,7 @@ REST_FRAMEWORK = {
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
-SESSION_COOKIE_AGE = 60 * 60 * 24
+SESSION_COOKIE_AGE = 60 * 60 * 24  # 24h
 
 CKEDITOR_UPLOAD_PATH = BASE_DIR + 'media/ckeditoruploads/'
 CKEDITOR_CONFIGS = {
@@ -192,3 +192,13 @@ CKEDITOR_CONFIGS = {
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 ITEMS_PER_PAGE = 20
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
