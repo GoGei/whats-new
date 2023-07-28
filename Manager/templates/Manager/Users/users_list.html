@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-  {% include 'base_filter_form.html' with filter=table.filter %}
+  {% include 'smartadmin/tables/filter.html' with filter=table.filter %}
   {#  {% include 'base_table_buttons.html' with filter=table.buttons %}#}
   <div class="table-responsive">
     {% render_table table.body %}
