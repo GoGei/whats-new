@@ -1,34 +1,28 @@
 import django_filters
-from django import forms
-from django.db.models import Q
 from django.utils.translation import ugettext as _
+from core.Utils.filter_fields import SearchFilterField, IsActiveFilterField, IsFilledFilterForm
 
 
 class UserFilterForm(django_filters.FilterSet):
-    search = django_filters.CharFilter(label=_('Search'), method='search_qs',
-                                       widget=forms.TextInput(attrs={
-                                           'type': 'search', 'class': 'form-control', 'placeholder': _('Search')
-                                       }))
-    is_active = django_filters.BooleanFilter(label=_('Is active'), method='is_active_filter',
-                                             widget=forms.Select(attrs={
-                                                 'class': 'form-control'},
-                                                 choices=[(None, _('Select')), (True, _('Active')),
-                                                          (False, _('Not active'))])
-                                             )
-
-    def __init__(self, *args, **kwargs):
-        self.search_fields = kwargs.pop('search_fields')
-        super().__init__(*args, **kwargs)
+    search = SearchFilterField()
+    is_active = IsActiveFilterField()
+    is_email_filled = IsFilledFilterForm(label=_('Is email filled'),
+                                         method='is_email_filled_filter')
+    is_name_filled = IsFilledFilterForm(label=_('Is name filled'),
+                                        method='is_name_filled_filter')
 
     def is_active_filter(self, queryset, name, value):
-        if isinstance(value, bool):
-            queryset = queryset.filter(is_active=value)
-        return queryset
+        return IsActiveFilterField.is_active_filter(queryset, name, value,
+                                                    activity_field='is_active')
 
     def search_qs(self, queryset, name, value):
-        fields = self.search_fields
-        _filter = Q()
-        for field in fields:
-            _filter |= Q(**{f'{field}__icontains': value})
-        queryset = queryset.filter(_filter)
-        return queryset
+        return SearchFilterField.search_qs(queryset, name, value,
+                                           search_fields=('first_name', 'last_name', 'email'))
+
+    def is_email_filled_filter(self, queryset, name, value):
+        return IsFilledFilterForm.is_filled_filter(queryset, name, value,
+                                                   fields='email')
+
+    def is_name_filled_filter(self, queryset, name, value):
+        return IsFilledFilterForm.is_filled_filter(queryset, name, value,
+                                                   fields=('first_name', 'last_name'))

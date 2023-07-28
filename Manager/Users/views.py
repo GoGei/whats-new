@@ -13,8 +13,7 @@ from .tables import UserTable
 def users_list(request):
     qs = User.objects.users().order_by('is_active', 'id')
 
-    filter_form = UserFilterForm(request.GET, queryset=qs,
-                                 search_fields=('first_name', 'last_name', 'email'))
+    filter_form = UserFilterForm(request.GET, queryset=qs, request=request)
     qs = filter_form.qs
 
     table_body = UserTable(qs, request=request)
