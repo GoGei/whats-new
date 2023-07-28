@@ -1,0 +1,11 @@
+{% extends 'Manager/Users/users_base.html' %}
+
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  view/{{ user.id }}
+{% endblock %}
+
+{% block content %}
+  {{ user.id }}
+{% endblock %}

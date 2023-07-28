@@ -13,5 +13,6 @@ class UserTable(tables.Table):
             'id',
             'name',
             'email',
+            'is_active',
         )
         attrs = {"class": "table table-hover"}

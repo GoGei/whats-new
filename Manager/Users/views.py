@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from core.Utils.Access.decorators import manager_required
 from core.User.models import User
@@ -19,3 +19,9 @@ def users_list(request):
 
     return render(request, 'Manager/Users/users_list.html',
                   {'table': table})
+
+
+@manager_required
+def users_view(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    return render(request, 'Manager/Users/users_view.html', {'user': user})
