@@ -1,10 +1,16 @@
 {% extends 'Manager/base_index.html' %}
+{% load i18n %}
 
 {% block breadcrumbs %}
-  Home
+  {{ block.super }}
 {% endblock %}
 
+{% block pagetitle %}
+  {% trans 'Home' %}
+{% endblock %}
+
+{% block home-sidebar-menu %} active {% endblock %}
+
 {% block content %}
-  Manager part
-  <a href="{% url 'manager-logout' %}">Logout</a>
+  <a href="{% url 'manager-logout' %}">{% trans 'Logout' %}</a>
 {% endblock %}

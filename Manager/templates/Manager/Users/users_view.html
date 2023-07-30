@@ -3,12 +3,13 @@
 
 {% block breadcrumbs %}
   {{ block.super }}
-  <li class="breadcrumb-item active" aria-current="page">
-    <a href="{% url 'manager-users-view' user.id %}">{% trans 'ID' %}: {{ user.id }}</a>
+  <li class="breadcrumb-item" aria-current="page">
+    <a href="{% url 'manager-users-view' user.id %}"><strong>{% trans 'ID' %}: {{ user.id }}</strong></a>
   </li>
 {% endblock %}
 
 {% block action-area %}
+  <a type="button" class="btn btn-success btn-md" href="{% url 'manager-users-list' %}">{% trans 'Back to list' %}</a>
 {% endblock %}
 
 {% block content %}

@@ -5,9 +5,11 @@
   {% trans 'Users' %}
 {% endblock %}
 
+{% block user-sidebar-menu %} active {% endblock %}
+
 {% block breadcrumbs %}
   {{ block.super }}
-  <li class="breadcrumb-item active" aria-current="page">
-    <a href="{% url 'manager-users-list' %}">{% trans 'Users' %}</a>
+  <li class="breadcrumb-item" aria-current="page">
+    <a href="{% url 'manager-users-list' %}"><strong>{% trans 'Users' %}</strong></a>
   </li>
 {% endblock %}
