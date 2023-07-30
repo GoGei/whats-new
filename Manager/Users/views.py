@@ -11,7 +11,7 @@ from .tables import UserTable
 
 @manager_required
 def users_list(request):
-    qs = User.objects.users().order_by('is_active', 'id')
+    qs = User.objects.users().order_by('is_active', 'id').none()
 
     filter_form = UserFilterForm(request.GET, queryset=qs, request=request)
     qs = filter_form.qs

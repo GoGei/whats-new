@@ -1,0 +1,10 @@
+/* Remove underline from the links */
+.breadcrumb-item a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Remove border from the breadcrumb items */
+.breadcrumb {
+    border: none;
+}

@@ -20,9 +20,24 @@
 
     {% include 'Manager/base_right_sidebar.html' %}
     <!-- partial -->
-    <!-- partial:partials/_sidebar.html -->
-    {% include 'Manager/base_sidebar.html' %}
-    <!-- partial -->
+    <!-- Sidebar -->
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <ul class="nav">
+        <li class="nav-item {% block home-sidebar-menu %}{% endblock %}">
+          <a class="nav-link" href="{% url 'manager-index' %}">
+            <i class="menu-icon mdi mdi-home"></i>
+            <span class="menu-title">{% trans 'Home' %}</span>
+          </a>
+        </li>
+        <li class="nav-item {% block user-sidebar-menu %}{% endblock %}">
+          <a class="nav-link" href="{% url 'manager-users-list' %}">
+            <i class="menu-icon mdi mdi-account"></i>
+            <span class="menu-title">{% trans 'Users' %}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- End sidebar -->
     <div class="main-panel">
       <div class="content-wrapper">
 
@@ -42,7 +57,7 @@
                       <ol class="breadcrumb">
                         {% block breadcrumbs %}
                           <li class="breadcrumb-item" aria-current="page">
-                            <a href="{% url 'manager-index' %}">{% trans 'Home' %}</a>
+                            <a href="{% url 'manager-index' %}"><strong>{% trans 'Home' %}</strong></a>
                           </li>
                         {% endblock %}
                       </ol>

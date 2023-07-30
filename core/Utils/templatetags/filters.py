@@ -38,3 +38,14 @@ def url_replace_multiple(request, fields, values):
         raise ValueError('Length of fields and values have to be equal!')
 
     return _dict.urlencode()
+
+
+@register.simple_tag
+def url_clean_get(request):
+    if request.method == 'GET':
+        _dict = request.GET.copy()
+        _dict = {key: value for key, value in _dict.items() if value}
+    else:
+        return {}
+
+    return _dict
