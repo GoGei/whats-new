@@ -7,7 +7,7 @@
   {% with filter.body.form as form %}
     <div class="row d-flex align-items-center">
       <!-- shown fields -->
-      <div class="col">
+      <div class="col-5">
         {% for field in form %}
           {% if field.name in to_search %}
             {% include 'base_form_field.html' with field=field %}
@@ -16,11 +16,17 @@
       </div>
 
       <!-- Button trigger modal -->
-      <div class="col">
+      <div class="col-1 d-flex justify-content-center">
         <button type="button" class="btn btn-info btn-rounded btn-sm btn-icon" data-toggle="modal"
                 data-target="#filterForm">
           <i class="mdi mdi-filter"></i>
         </button>
+      </div>
+
+      <div class="col-6 d-flex justify-content-end btn-wrapper">
+        <a href="#" class="btn btn-sm btn-otline-dark"><i class="icon-share"></i> Share</a>
+        <a href="#" class="btn btn-sm btn-otline-dark"><i class="icon-printer"></i> Print</a>
+        <a href="#" class="btn btn-sm btn-primary"><i class="icon-download"></i> Export</a>
       </div>
     </div>
 

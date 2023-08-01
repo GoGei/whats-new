@@ -40,39 +40,34 @@
     <!-- End sidebar -->
     <div class="main-panel">
       <div class="content-wrapper">
+        <div>
+          <h1 class="card-title">
+            {% block pagetitle %}
+            {% endblock %}
+          </h1>
+        </div>
 
-
-        <div class="grid-margin stretch-card">
-          <div class="card">
-
-            <div class="card-body">
-              <h1 class="card-title">
-                {% block pagetitle %}
+        <div class="row">
+          <div class="col">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                {% block breadcrumbs %}
+                  <li class="breadcrumb-item" aria-current="page">
+                    <a href="{% url 'manager-index' %}"><strong>{% trans 'Home' %}</strong></a>
+                  </li>
                 {% endblock %}
-              </h1>
-              <div class="card-description">
-                <div class="row">
-                  <div class="col">
-                    <nav aria-label="breadcrumb">
-                      <ol class="breadcrumb">
-                        {% block breadcrumbs %}
-                          <li class="breadcrumb-item" aria-current="page">
-                            <a href="{% url 'manager-index' %}"><strong>{% trans 'Home' %}</strong></a>
-                          </li>
-                        {% endblock %}
-                      </ol>
-                    </nav>
-                  </div>
-                  <div class="col text-right">
-                    {% block action-area %}
-                    {% endblock %}
-                  </div>
-                </div>
-              </div>
-              {% block content %}
-              {% endblock %}
-            </div>
+              </ol>
+            </nav>
           </div>
+          <div class="col text-right">
+            {% block action-area %}
+            {% endblock %}
+          </div>
+        </div>
+
+        <div>
+          {% block content %}
+          {% endblock %}
         </div>
       </div>
       <!-- content-wrapper ends -->
