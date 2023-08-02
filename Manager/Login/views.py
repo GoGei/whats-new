@@ -20,10 +20,10 @@ def login_view(request):
             return redirect(reverse('home-index', host='public'))
 
     initial = {'email': request.COOKIES.get('email', '')}
-    form_body = ManagerLoginForm(request.POST or None, initial=initial)
+    form = ManagerLoginForm(request.POST or None, initial=initial)
 
-    if form_body.is_valid():
-        data = form_body.cleaned_data
+    if form.is_valid():
+        data = form.cleaned_data
         user = authenticate(email=data.get('email'), password=data.get('password'))
 
         if user:
@@ -44,16 +44,11 @@ def login_view(request):
                 return response
 
             elif not user.is_manager:
-                form_body.add_error(None, _('User is not manager! You are not allowed to access this page'))
+                form.add_error(None, _('User is not manager! You are not allowed to access this page'))
             else:
-                form_body.add_error(None, _('User is not active! Please, contact a manager'))
+                form.add_error(None, _('User is not active! Please, contact a manager'))
         else:
-            form_body.add_error(None, _('User with this email and password not found'))
-
-    form = {
-        'body': form_body,
-        'buttons': {'save': True}
-    }
+            form.add_error(None, _('User with this email and password not found'))
 
     return render(request, 'Manager/Login/login.html', {'form': form})
 
