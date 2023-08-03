@@ -5,8 +5,34 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin2 </title>
-  {% include 'Manager/base_css.html' %}
+  <title>% trans 'Whats New Manager' %}</title>
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/font-awesome/css/all.css' %}">
+  <link rel="stylesheet" href="{% static 'css/font-awesome/css/fontawesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/select2.css' %}">
+
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'admin/staradmin/vendors/feather/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/staradmin/vendors/mdi/css/materialdesignicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/staradmin/vendors/ti-icons/css/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/staradmin/vendors/typicons/typicons.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/staradmin/vendors/simple-line-icons/css/simple-line-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/staradmin/vendors/css/vendor.bundle.base.css' %}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="{% static 'admin/staradmin/js/select.dataTables.min.css' %}">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'admin/staradmin/css/vertical-layout-light/style.css' %}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{% static 'admin/staradmin/images/favicon.png' %}"/>
+
+  <link rel="stylesheet" href="{% static 'admin/css/admin.css' %}"/>
+
+  {% block extracss %}
+  {% endblock %}
+
 </head>
 <body>
 <div class="container-scroller">
@@ -80,8 +106,44 @@
 </div>
 <!-- container-scroller -->
 
-{% include 'Manager/base_js.html' %}
-</body>
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'js/jquery.cookie.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+{#<script src="{% static 'js/select2.js' %}"></script>#}
+<script src="{% static 'js/holder.min.js' %}"></script>
+<script src="{% static 'js/jquery.inputmask.min.js' %}"></script>
 
+<!-- plugins:js -->
+<script src="{% static 'admin/staradmin/vendors/js/vendor.bundle.base.js' %}"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script src="{% static 'admin/staradmin/vendors/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'admin/staradmin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js' %}"></script>
+<script src="{% static 'admin/staradmin/vendors/progressbar.js/progressbar.min.js' %}"></script>
+
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="{% static 'admin/staradmin/js/off-canvas.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/hoverable-collapse.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/template.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/settings.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/todolist.js' %}"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="{% static 'admin/staradmin/js/file-upload.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/typeahead.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/select2.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/chart.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/dashboard.js' %}"></script>
+<script src="{% static 'admin/staradmin/js/Chart.roundedBarCharts.js' %}"></script>
+<!-- End custom js for this page-->
+
+<script src="{% static 'admin/js/admin.js' %}"></script>
+
+{% block extrajs %}
+{% endblock %}
+</body>
 </html>
 
