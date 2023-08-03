@@ -1,5 +1,5 @@
 {% extends 'Manager/Users/users_base.html' %}
-{% load django_tables2 i18n filters %}
+
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -15,21 +15,7 @@
         <div class="card-description">
           <div class="row">
             <div class="col">
-              {% url_clean_get request as params %}
-              {% with data=table.body.data %}
-                {% if data or params %}
-                  {% include 'smartadmin/table_filter.html' with filter=table.filter %}
-                  {% if data %}
-                    <div class="table-responsive">
-                      {% render_table table.body %}
-                    </div>
-                  {% else %}
-                    {% include 'smartadmin/table_empty.html' %}
-                  {% endif %}
-                {% else %}
-                  {% include 'smartadmin/table_no_data.html' %}
-                {% endif %}
-              {% endwith %}
+              {% include 'smartadmin/table.html' with table=table %}
             </div>
           </div>
         </div>
