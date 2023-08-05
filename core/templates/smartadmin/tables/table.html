@@ -3,15 +3,15 @@
 {% url_clean_get request as params %}
 {% with data=table.body.data %}
   {% if data or params %}
-    {% include 'smartadmin/table_filter.html' with filter=table.filter %}
+    {% include 'smartadmin/tables/table_filter.html' with filter=table.filter %}
     {% if data %}
       <div class="table-responsive">
         {% render_table table.body %}
       </div>
     {% else %}
-      {% include 'smartadmin/table_empty.html' %}
+      {% include 'smartadmin/tables/table_empty.html' %}
     {% endif %}
   {% else %}
-    {% include 'smartadmin/table_no_data.html' %}
+    {% include 'smartadmin/tables/table_no_data.html' %}
   {% endif %}
 {% endwith %}

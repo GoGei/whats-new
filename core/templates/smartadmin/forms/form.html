@@ -8,10 +8,10 @@
 
 <form action="{{ form.action_url }}" method="{{ form.method|default:'post' }}" novalidate class="forms-sample">
   {% csrf_token %}
-  {% include 'smartadmin/non_field_error_block.html' with form=form.body %}
+  {% include 'smartadmin/forms/non_field_error_block.html' with form=form.body %}
   {{ form.body.media }}
   {% for field in form.body %}
-    {% include 'smartadmin/form_field.html' with field=field horizontal=horizontal %}
+    {% include 'smartadmin/forms/form_field.html' with field=field horizontal=horizontal %}
   {% endfor %}
-  {% include 'smartadmin/form_buttons.html' with buttons=form.buttons %}
+  {% include 'smartadmin/forms/form_buttons.html' with buttons=form.buttons %}
 </form>

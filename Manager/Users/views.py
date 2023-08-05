@@ -34,5 +34,5 @@ def users_list(request):
 
 @manager_required
 def users_view(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
+    user = get_object_or_404(User.objects.users(), pk=user_id)
     return render(request, 'Manager/Users/users_view.html', {'user': user})

@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.forms import model_to_dict
 from django_hosts import reverse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext as _
@@ -6,7 +7,7 @@ from django.contrib import messages
 
 from core.Utils.Access.decorators import manager_required, superuser_required
 from core.User.models import User
-from .forms import AdminFilterForm, AdminFormAdd
+from .forms import AdminFilterForm, AdminFormAdd, AdminFormEdit
 from .tables import AdminTable
 
 
@@ -35,7 +36,7 @@ def admins_list(request):
 
 @manager_required
 def admins_view(request, admin_id):
-    admin = get_object_or_404(User, pk=admin_id)
+    admin = get_object_or_404(User.objects.admins(), pk=admin_id)
     return render(request, 'Manager/Admins/admins_view.html', {'admin': admin})
 
 
@@ -59,3 +60,29 @@ def admins_add(request):
     }
 
     return render(request, 'Manager/Admins/admins_add.html', {'form': form})
+
+
+@superuser_required
+def admins_edit(request, admin_id):
+    admin = get_object_or_404(User.objects.admins(), pk=admin_id)
+
+    if '_cancel' in request.POST:
+        return redirect(reverse('manager-admins-view', args=[admin_id], host='manager'))
+
+    initial = model_to_dict(admin)
+    initial['status'] = AdminFormEdit.to_status(admin)
+    form_body = AdminFormEdit(request.POST or None, instance=admin, initial=initial)
+    if form_body.is_valid():
+        admin = form_body.save()
+        messages.success(request, _(f'Admin {admin.email} was successfully edited'))
+        return redirect(reverse('manager-admins-view', args=[admin_id], host='manager'))
+
+    form = {
+        'body': form_body,
+        'buttons': {'submit': True, 'cancel': True},
+        'title': _('Edit admin'),
+        'description': _('Please, fill in the form below to edit an admin'),
+    }
+
+    return render(request, 'Manager/Admins/admins_edit.html', {'form': form,
+                                                               'admin': admin})
