@@ -1,5 +1,7 @@
 import django_filters
+from django import forms
 from django.utils.translation import ugettext as _
+from core.User.models import User
 from core.Utils.filter_fields import SearchFilterField, IsActiveFilterField, IsFilledFilterForm
 
 
@@ -44,3 +46,26 @@ class AdminFilterForm(django_filters.FilterSet):
             elif value == 'superuser':
                 queryset = queryset.filter(is_superuser=True)
         return queryset
+
+
+class AdminForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email', 'phone',
+                  'is_active', 'is_staff', 'is_superuser')
+
+    def clean(self):
+        data = super().clean()
+        is_staff = data.get('is_staff')
+        is_superuser = data.get('is_superuser')
+
+        if not (is_staff or is_superuser):
+            msg = _('Admin must be at least staff or superuser, or both')
+            self.add_error('is_staff', msg)
+            self.add_error('is_superuser', msg)
+
+        return data
+
+
+class AdminFormAdd(AdminForm):
+    pass
