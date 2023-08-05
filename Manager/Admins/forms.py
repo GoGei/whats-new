@@ -1,5 +1,8 @@
+from typing import Union, Optional
+
 import django_filters
 from django import forms
+from django.db import models
 from django.utils.translation import ugettext as _
 from core.User.models import User
 from core.Utils.filter_fields import SearchFilterField, IsActiveFilterField, IsFilledFilterForm
@@ -17,6 +20,7 @@ class AdminFilterForm(django_filters.FilterSet):
     admin_status = django_filters.ChoiceFilter(label=_('Admin status'), method='admin_status_filter',
                                                choices=((None, _('Select')), ('staff', _('Staff')),
                                                         ('superuser', _('Superuser'))),
+                                               empty_label=None
                                                )
 
     def is_active_filter(self, queryset, name, value):
@@ -49,23 +53,46 @@ class AdminFilterForm(django_filters.FilterSet):
 
 
 class AdminForm(forms.ModelForm):
+    class StatusChoices(models.TextChoices):
+        STAFF = ('staff', _('Staff'))
+        SUPERUSER = ('superuser', _('Superuser'))
+
+    status = forms.ChoiceField(choices=StatusChoices.choices)
+
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'phone',
-                  'is_active', 'is_staff', 'is_superuser')
+                  'is_active', 'status')
+        exclude = ('is_staff', 'is_superuser')
+
+    @classmethod
+    def to_status(cls, admin) -> Optional[StatusChoices]:
+        if admin.is_superuser:
+            return cls.StatusChoices.SUPERUSER
+        elif admin.is_staff:
+            return cls.StatusChoices.STAFF
+        else:
+            return None
 
     def clean(self):
         data = super().clean()
-        is_staff = data.get('is_staff')
-        is_superuser = data.get('is_superuser')
+        status = data.get('status')
+        choices = self.StatusChoices
 
-        if not (is_staff or is_superuser):
-            msg = _('Admin must be at least staff or superuser, or both')
-            self.add_error('is_staff', msg)
-            self.add_error('is_superuser', msg)
-
+        if status == choices.STAFF:
+            self.instance.is_staff = True
+            self.instance.is_superuser = False
+        elif status == choices.SUPERUSER:
+            self.instance.is_staff = True
+            self.instance.is_superuser = True
+        else:
+            self.add_error('status', _('Invalid status'))
         return data
 
 
 class AdminFormAdd(AdminForm):
+    pass
+
+
+class AdminFormEdit(AdminForm):
     pass
