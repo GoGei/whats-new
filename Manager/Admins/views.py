@@ -1,11 +1,12 @@
 from django.conf import settings
 from django_hosts import reverse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext as _
+from django.contrib import messages
 
-from core.Utils.Access.decorators import manager_required
+from core.Utils.Access.decorators import manager_required, superuser_required
 from core.User.models import User
-from .forms import AdminFilterForm
+from .forms import AdminFilterForm, AdminFormAdd
 from .tables import AdminTable
 
 
@@ -36,3 +37,25 @@ def admins_list(request):
 def admins_view(request, admin_id):
     admin = get_object_or_404(User, pk=admin_id)
     return render(request, 'Manager/Admins/admins_view.html', {'admin': admin})
+
+
+@superuser_required
+def admins_add(request):
+    form_body = AdminFormAdd(request.POST or None)
+
+    if '_cancel' in request.POST:
+        return redirect(reverse('manager-admins-list', host='manager'))
+
+    if form_body.is_valid():
+        admin = form_body.save()
+        messages.success(request, _(f'Admin {admin.email} was successfully created'))
+        return redirect(reverse('manager-admins-list', host='manager'))
+
+    form = {
+        'body': form_body,
+        'buttons': {'save': True, 'cancel': True},
+        'title': _('Add admin'),
+        'description': _('Please, fill in the form below to add an admin'),
+    }
+
+    return render(request, 'Manager/Admins/admins_add.html', {'form': form})

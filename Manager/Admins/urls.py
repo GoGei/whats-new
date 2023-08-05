@@ -5,5 +5,6 @@ from . import views
 
 urlpatterns = [
     url(r'$', views.admins_list, name='manager-admins-list'),
+    url(r'add/$', views.admins_add, name='manager-admins-add'),
     path(r'<int:admin_id>/', views.admins_view, name='manager-admins-view'),
 ]

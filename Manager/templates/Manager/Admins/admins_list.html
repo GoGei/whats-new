@@ -1,11 +1,12 @@
 {% extends 'Manager/Admins/admins_base.html' %}
-
+{% load i18n %}
 
 {% block breadcrumbs %}
   {{ block.super }}
 {% endblock %}
 
 {% block action-area %}
+  <a type="button" class="btn btn-success btn-md" href="{% url 'manager-admins-add' %}">{% trans 'Add' %}</a>
 {% endblock %}
 
 {% block content %}
