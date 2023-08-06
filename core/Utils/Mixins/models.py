@@ -42,19 +42,22 @@ class CrmMixin(models.Model):
         if archived_by:
             self.archived_by = archived_by
         self.save()
+        return self
 
     def modify(self, modified_by=None):
         self.modified_stamp = timezone.now()
         if modified_by:
             self.modified_by = modified_by
         self.save()
+        return self
 
     def restore(self, restored_by=None):
         self.archived_stamp = None
         self.archived_by = None
         self.modify(restored_by)
+        return self
 
-    def is_active(self):
+    def is_active(self) -> bool:
         return not bool(self.archived_stamp)
 
 
@@ -73,8 +76,16 @@ class SlugifyMixin(models.Model):
             qs = qs.exclude(pk=instance.pk)
         return not qs.exists()
 
-    def assign_slug(self):
-        value = getattr(self, self.SLUGIFY_FIELD, None)
+    @classmethod
+    def generate_slug(cls, obj):
+        return cls.assign_slug(obj, commit=False)
+
+    def assign_slug(self, commit=True):
+        field = self.SLUGIFY_FIELD
+        if not field:
+            raise ValueError('SlugifyMixin must have a slug field')
+
+        value = getattr(self, field, None)
         if not value:
             raise ValueError('Instance must have a slug field')
 
@@ -83,5 +94,6 @@ class SlugifyMixin(models.Model):
 
         slug = slugify(value)
         self.slug = slug if len(slug) <= 255 else slug[:255]
-        self.save()
+        if commit:
+            self.save()
         return self
