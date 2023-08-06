@@ -1,8 +1,8 @@
-from factory import DjangoModelFactory, SubFactory
+from factory import fuzzy, DjangoModelFactory, SubFactory
 from core.User.factories import UserFactory
 from core.Category.factories import CategoryFactory
 from core.Utils.Tests.fuzzy_fields import FuzzyLanguage, FuzzyParagraph
-from .models import Post
+from .models import Post, PostComment
 
 
 class PostFactory(DjangoModelFactory):
@@ -14,3 +14,13 @@ class PostFactory(DjangoModelFactory):
 
     class Meta:
         model = Post
+
+
+class PostCommentFactory(DjangoModelFactory):
+    author = SubFactory(UserFactory)
+    post = SubFactory(PostFactory)
+    parent = None
+    content = FuzzyParagraph(length=512)
+
+    class Meta:
+        model = PostComment
