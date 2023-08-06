@@ -1,4 +1,4 @@
-from typing import Union, Optional
+from typing import Optional
 
 import django_filters
 from django import forms

@@ -4,7 +4,7 @@ from core.User.models import User
 
 class AdminTable(tables.Table):
     phone = tables.TemplateColumn(orderable=True, attrs={"td": {"style": "width: 15%"}},
-                                   template_name='Manager/Admins/admins_table_phone.html')
+                                  template_name='Manager/Admins/admins_table_phone.html')
     status = tables.TemplateColumn(orderable=True, attrs={"td": {"style": "width: 15%"}},
                                    order_by=('-is_superuser',),
                                    template_name='Manager/Admins/admins_table_manager_status.html')
