@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'core.AuthorRequest',
     'core.UserFeedback',
     'core.Colors',
+    'core.Category',
 ]
 
 AUTH_USER_MODEL = 'User.User'

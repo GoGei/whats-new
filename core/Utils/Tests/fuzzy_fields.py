@@ -1,7 +1,9 @@
 import string
 from faker import Faker
 from factory import fuzzy
+from django.conf import settings
 
+LANGUAGES = settings.LANGUAGES
 faker = Faker()
 
 
@@ -60,3 +62,15 @@ class FuzzyColor(fuzzy.FuzzyText):
         if not self.with_hex:
             color = color.replace('#', '')
         return color
+
+
+class FuzzyLanguage(dict):
+    def __init__(self, fuzzy_class, languages=LANGUAGES, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.languages = languages
+        self.fuzzy_class = fuzzy_class(*args, **kwargs)
+
+    def fuzz(self):
+        languages = [item[0] for item in self.languages]
+        data = {lang: self.fuzzy_class.fuzz() for lang in languages}
+        return data

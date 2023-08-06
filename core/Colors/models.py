@@ -33,8 +33,10 @@ class ColorAbstract(CrmMixin):
 
 
 class CategoryColor(ColorAbstract):
-    pass
+    class Meta:
+        db_table = 'category_color'
 
 
 class PostColor(ColorAbstract):
-    pass
+    class Meta:
+        db_table = 'post_color'
