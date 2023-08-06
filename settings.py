@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'core.Colors',
     'core.Category',
     'core.Post',
+    'core.Subscription',
 ]
 
 AUTH_USER_MODEL = 'User.User'

@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from core.Utils.Mixins.models import CrmMixin
 
@@ -39,7 +38,7 @@ class AuthorRequestComment(CrmMixin):
     END_COMMENT = '...'
 
     author_request = models.ForeignKey(AuthorRequest, on_delete=models.PROTECT)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    user = models.ForeignKey('User.User', on_delete=models.PROTECT)
     comment = models.TextField(max_length=2048)
 
     class Meta:

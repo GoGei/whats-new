@@ -22,6 +22,16 @@ class ActiveQuerySet(models.QuerySet):
     def ordered(self):
         return self.all().order_by('-created_stamp')
 
+    def is_active_annotated(self):
+        return self.annotate(
+            is_active_annotated=models.Case(
+                models.When(archived_stamp__isnull=True, then=models.Value(True)),
+                models.When(archived_stamp__isnull=False, then=models.Value(False)),
+                default=models.Value(None),
+                output_field=models.NullBooleanField
+            ),
+        )
+
 
 class CrmMixin(models.Model):
     created_stamp = models.DateTimeField(default=timezone.now, db_index=True)
