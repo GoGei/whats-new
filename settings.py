@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'core.Post',
     'core.Subscription',
     'core.Contacts',
+    'core.Likes',
 ]
 
 AUTH_USER_MODEL = 'User.User'

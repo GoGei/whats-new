@@ -96,3 +96,9 @@ class FuzzyImage(fuzzy.BaseFuzzyAttribute):
 
         django_file = File(image_bytes, name=f'{self.name}.{self.ext}')
         return django_file
+
+
+class FuzzyBoolean(fuzzy.FuzzyChoice):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('choices', (True, False))
+        super().__init__(*args, **kwargs)
