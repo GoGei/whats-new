@@ -9,6 +9,7 @@ class Category(CrmMixin, SlugifyMixin, TranslateMixin):
     name_data = models.JSONField(default=dict, db_index=True)
     description_data = models.JSONField(default=dict)
     position = models.IntegerField(default=0, db_index=True)
+    color = models.ForeignKey('Colors.CategoryColor', on_delete=models.PROTECT)
 
     class Meta:
         db_table = 'category'

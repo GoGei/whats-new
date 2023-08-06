@@ -1,6 +1,7 @@
-from factory import fuzzy, DjangoModelFactory, SubFactory
+from factory import DjangoModelFactory, SubFactory
 from core.User.factories import UserFactory
 from core.Category.factories import CategoryFactory
+from core.Colors.factories import PostColorFactory
 from core.Utils.Tests.fuzzy_fields import FuzzyLanguage, FuzzyParagraph
 from .models import Post, PostComment
 
@@ -11,6 +12,7 @@ class PostFactory(DjangoModelFactory):
     text_data = FuzzyLanguage(FuzzyParagraph, nb_sentences=5, length=2048).fuzz()
     category = SubFactory(CategoryFactory)
     author = SubFactory(UserFactory)
+    color = SubFactory(PostColorFactory)
 
     class Meta:
         model = Post

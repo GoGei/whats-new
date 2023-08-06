@@ -15,6 +15,7 @@ class Post(CrmMixin, SlugifyMixin, TranslateMixin):
 
     category = models.ForeignKey('Category.Category', on_delete=models.PROTECT)
     author = models.ForeignKey('User.User', on_delete=models.PROTECT)
+    color = models.ForeignKey('Colors.PostColor', on_delete=models.PROTECT)
 
     class Meta:
         db_table = 'post'

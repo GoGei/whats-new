@@ -1,4 +1,5 @@
-from factory import fuzzy, DjangoModelFactory, Faker
+from factory import fuzzy, SubFactory, DjangoModelFactory, Faker
+from core.Colors.factories import CategoryColorFactory
 from core.Utils.Tests.fuzzy_fields import FuzzyLanguage, FuzzyParagraph
 from .models import Category
 
@@ -8,6 +9,7 @@ class CategoryFactory(DjangoModelFactory):
     description_data = FuzzyLanguage(FuzzyParagraph, nb_sentences=10, length=1024).fuzz()
     position = fuzzy.FuzzyInteger(low=1, high=99)
     slug = Faker('slug')
+    color = SubFactory(CategoryColorFactory)
 
     class Meta:
         model = Category
