@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils import timezone
+from django.utils import timezone, translation
 from django.utils.text import slugify
 from django.conf import settings
 
@@ -22,6 +22,16 @@ class ActiveQuerySet(models.QuerySet):
     def ordered(self):
         return self.all().order_by('-created_stamp')
 
+    def is_active_annotated(self):
+        return self.annotate(
+            is_active_annotated=models.Case(
+                models.When(archived_stamp__isnull=True, then=models.Value(True)),
+                models.When(archived_stamp__isnull=False, then=models.Value(False)),
+                default=models.Value(None),
+                output_field=models.NullBooleanField
+            ),
+        )
+
 
 class CrmMixin(models.Model):
     created_stamp = models.DateTimeField(default=timezone.now, db_index=True)
@@ -42,19 +52,22 @@ class CrmMixin(models.Model):
         if archived_by:
             self.archived_by = archived_by
         self.save()
+        return self
 
     def modify(self, modified_by=None):
         self.modified_stamp = timezone.now()
         if modified_by:
             self.modified_by = modified_by
         self.save()
+        return self
 
     def restore(self, restored_by=None):
         self.archived_stamp = None
         self.archived_by = None
         self.modify(restored_by)
+        return self
 
-    def is_active(self):
+    def is_active(self) -> bool:
         return not bool(self.archived_stamp)
 
 
@@ -73,8 +86,16 @@ class SlugifyMixin(models.Model):
             qs = qs.exclude(pk=instance.pk)
         return not qs.exists()
 
-    def assign_slug(self):
-        value = getattr(self, self.SLUGIFY_FIELD, None)
+    @classmethod
+    def generate_slug(cls, obj):
+        return cls.assign_slug(obj, commit=False)
+
+    def assign_slug(self, commit=True):
+        field = self.SLUGIFY_FIELD
+        if not field:
+            raise ValueError('SlugifyMixin must have a slug field')
+
+        value = getattr(self, field, None)
         if not value:
             raise ValueError('Instance must have a slug field')
 
@@ -83,5 +104,34 @@ class SlugifyMixin(models.Model):
 
         slug = slugify(value)
         self.slug = slug if len(slug) <= 255 else slug[:255]
-        self.save()
+        if commit:
+            self.save()
         return self
+
+
+class TranslateMixin(models.Model):
+    TRANSLATED_FIELDS = []
+
+    class Meta:
+        abstract = True
+
+    def __getattr__(self, key):
+        if key and key in self.TRANSLATED_FIELDS:
+            return getattr(self, f'{key}_data', {}).get(translation.get_language(), None)
+        return super(TranslateMixin, self).__getattribute__(key)
+
+    def __setattr__(self, key, value):
+        if key and key in self.TRANSLATED_FIELDS:
+            return getattr(self, f'{key}_data', {}).update({translation.get_language(): value})
+        return super(TranslateMixin, self).__setattr__(key, value)
+
+    def get_form_initial(self):
+        languages = list(zip(*settings.LANGUAGES))[0]
+        rc = []
+        for language in languages:
+            field_data = {'language_code': language}
+            for field in self.TRANSLATED_FIELDS:
+                data = getattr(self, '%s_data' % field).get(language, None)
+                field_data.update({field: data})
+            rc.append(field_data)
+        return rc

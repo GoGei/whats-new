@@ -50,6 +50,14 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'core.Utils',
     'core.User',
+    'core.AuthorRequest',
+    'core.UserFeedback',
+    'core.Colors',
+    'core.Category',
+    'core.Post',
+    'core.Subscription',
+    'core.Contacts',
+    'core.Likes',
 ]
 
 AUTH_USER_MODEL = 'User.User'
@@ -140,6 +148,8 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
+# folders
+CONTACT_ICONS_FOLDER = 'contact_icons'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
