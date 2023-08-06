@@ -1,6 +1,10 @@
 from settings import *
 
 SECRET_KEY = 'test'
+TEST_RUNNER = os.environ.get("TEST_RUNNER", "django.test.runner.DiscoverRunner")
+
+DEBUG = True
+TEST_MODE = True
 
 DATABASES = {
     'default': {

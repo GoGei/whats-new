@@ -3,6 +3,7 @@ from django.utils import translation
 from core.Category.factories import CategoryFactory
 from ..models import Subscription
 from ..factories import SubscriptionFactory
+from ...Category.models import Category
 
 
 class SubscriptionTests(TestCase):
@@ -55,7 +56,7 @@ class SubscriptionTests(TestCase):
         self.assertTrue(all([category in current_categories for category in [category1]]))
         self.assertEqual(current_categories.count(), 1)
 
-        subscription.set_categories([category2, category3])
+        subscription.set_categories(Category.objects.filter(id__in=[category2.id, category3.id]))
         current_categories = subscription.get_categories()
         self.assertTrue(all([category in current_categories for category in [category2, category3]]))
         self.assertEqual(current_categories.count(), 2)

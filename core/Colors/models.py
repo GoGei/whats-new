@@ -4,8 +4,8 @@ from core.Utils.Mixins.models import CrmMixin
 
 
 class ColorAbstract(CrmMixin):
-    name = models.CharField(max_length=50)
-    value = models.CharField(max_length=7)
+    name = models.CharField(max_length=50, db_index=True)
+    value = models.CharField(max_length=7, db_index=True)
 
     class Meta:
         abstract = True

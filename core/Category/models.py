@@ -6,9 +6,9 @@ class Category(CrmMixin, SlugifyMixin, TranslateMixin):
     TRANSLATED_FIELDS = ['name', 'description']
     SLUGIFY_FIELD = 'name'
 
-    name_data = models.JSONField(default=dict)
+    name_data = models.JSONField(default=dict, db_index=True)
     description_data = models.JSONField(default=dict)
-    position = models.IntegerField(default=0)
+    position = models.IntegerField(default=0, db_index=True)
 
     class Meta:
         db_table = 'category'

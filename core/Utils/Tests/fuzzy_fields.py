@@ -1,7 +1,10 @@
 import string
+from io import BytesIO
+from PIL import Image
 from faker import Faker
 from factory import fuzzy
 from django.conf import settings
+from django.core.files import File
 
 LANGUAGES = settings.LANGUAGES
 faker = Faker()
@@ -64,13 +67,32 @@ class FuzzyColor(fuzzy.FuzzyText):
         return color
 
 
-class FuzzyLanguage(dict):
+class FuzzyLanguage(fuzzy.BaseFuzzyAttribute):
     def __init__(self, fuzzy_class, languages=LANGUAGES, *args, **kwargs):
-        super().__init__(*args, **kwargs)
         self.languages = languages
         self.fuzzy_class = fuzzy_class(*args, **kwargs)
+        super().__init__()
 
     def fuzz(self):
         languages = [item[0] for item in self.languages]
         data = {lang: self.fuzzy_class.fuzz() for lang in languages}
         return data
+
+
+class FuzzyImage(fuzzy.BaseFuzzyAttribute):
+
+    def __init__(self, name=None, ext='png', size_x=100, size_y=100, **kwargs):
+        self.name = name or fuzzy.FuzzyText(length=10).fuzz()
+        self.ext = ext
+        self.size_x = size_x
+        self.size_y = size_y
+        super().__init__(**kwargs)
+
+    def fuzz(self):
+        image = Image.new('RGB', (self.size_x, self.size_y))
+        image_bytes = BytesIO()
+        image.save(image_bytes, format='PNG')
+        image_bytes.seek(0)
+
+        django_file = File(image_bytes, name=f'{self.name}.{self.ext}')
+        return django_file

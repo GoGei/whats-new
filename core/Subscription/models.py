@@ -3,7 +3,7 @@ from core.Utils.Mixins.models import CrmMixin
 
 
 class Subscription(CrmMixin):
-    email = models.EmailField()
+    email = models.EmailField(db_index=True)
     user = models.ForeignKey('User.User', on_delete=models.PROTECT, null=True)
     categories = models.ManyToManyField('Category.Category')
 

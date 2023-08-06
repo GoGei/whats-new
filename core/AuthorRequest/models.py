@@ -17,10 +17,10 @@ class AuthorRequest(CrmMixin):
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    email = models.EmailField(unique=False)
+    email = models.EmailField(unique=False, db_index=True)
     phone = models.CharField(max_length=20)
     working_experience = models.CharField(max_length=20, choices=WorkingExperienceChoices.choices)
-    status = models.CharField(max_length=20, choices=StatusChoices.choices, default=StatusChoices.NEW)
+    status = models.CharField(max_length=20, choices=StatusChoices.choices, default=StatusChoices.NEW, db_index=True)
 
     class Meta:
         db_table = 'author_request'

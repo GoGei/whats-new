@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'core.Category',
     'core.Post',
     'core.Subscription',
+    'core.Contacts',
 ]
 
 AUTH_USER_MODEL = 'User.User'
@@ -146,6 +147,8 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
+# folders
+CONTACT_ICONS_FOLDER = 'contact_icons'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
