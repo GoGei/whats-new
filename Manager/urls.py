@@ -7,3 +7,9 @@ urlpatterns = [
     url(r'^users/', include('Manager.Users.urls')),
     url(r'^admins/', include('Manager.Admins.urls')),
 ]
+
+from . import test
+
+urlpatterns += [
+    url(r'test/$', test.manager_test, name='manager-test'),
+]
