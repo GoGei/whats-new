@@ -227,4 +227,64 @@
 #                   'Manager/manager_test.html',
 #                   {'formset': formset})
 
+from django import forms
 
+
+class MyForm(forms.Form):
+    field1 = forms.CharField()
+    # Add more fields as needed
+
+
+from django.forms.formsets import BaseFormSet
+
+
+class MyFormSet(BaseFormSet):
+
+    def __init__(self, *args, **kwargs):
+        super(MyFormSet, self).__init__(*args, **kwargs)
+
+        # Customize labels for the language
+        for form in self.forms:
+            language_code = form.cleaned_data['language_code']
+            form.fields['field1'].label = 'Field 1 ({})'.format(language_code.upper())
+
+
+from django.utils.translation import ugettext_lazy as _
+
+
+class LanguageForm(forms.Form):
+    language_code = forms.CharField(widget=forms.HiddenInput)
+
+    def __init__(self, *args, **kwargs):
+        super(LanguageForm, self).__init__(*args, **kwargs)
+        self.fields['language_code'].initial = kwargs.get('prefix', '')
+
+    def get_form(self, language_code):
+        return MyForm(prefix=language_code)
+
+
+from django.forms import formset_factory
+from django.conf import settings
+
+# Create a common "language" form instance
+language_form = LanguageForm()
+
+# Create the formset using formset_factory and the custom MyFormSet
+MyLangFormSet = formset_factory(language_form.get_form, formset=MyFormSet, extra=0, can_delete=False)
+
+from django.shortcuts import render
+from django.contrib import messages
+
+
+def manager_test(request):
+    formset = MyLangFormSet(request.POST, prefix='language')
+    if formset.is_valid():
+        print('cleaned_data', formset.cleaned_data)
+        messages.success(request, formset.cleaned_data)
+    else:
+        print('errors', formset.errors)
+        messages.error(request, formset.errors)
+
+    return render(request,
+                  'Manager/manager_test.html',
+                  {'formset': formset})
