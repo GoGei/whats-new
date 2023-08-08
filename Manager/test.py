@@ -93,8 +93,13 @@ def manager_test(request):
                                                request.FILES or None,
                                                prefix='category',
                                                can_delete=False)
+    print('there')
     if lang_form_set.is_valid():
+        print('valid')
         print(lang_form_set.cleaned_data)
         print(lang_form_set.is_valid())
+    else:
+        print('errors')
+        print(lang_form_set.errors)
 
     return render(request, 'Manager/manager_test.html', {'formset': lang_form_set})
