@@ -59,6 +59,12 @@
             <span class="menu-title">{% trans 'Admins' %}</span>
           </a>
         </li>
+        <li class="nav-item {% block author-request-sidebar-menu %}{% endblock %}">
+          <a class="nav-link" href="{% url 'manager-author-request-list' %}">
+            <i class="menu-icon mdi mdi mdi-account-multiple-plus"></i>
+            <span class="menu-title">{% trans 'Author requests' %}</span>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- End sidebar -->

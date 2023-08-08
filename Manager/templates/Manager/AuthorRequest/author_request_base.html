@@ -1,0 +1,15 @@
+{% extends 'Manager/base_index.html' %}
+{% load i18n %}
+
+{% block pagetitle %}
+  {% trans 'Author requests' %}
+{% endblock %}
+
+{% block author-request-sidebar-menu %} active {% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item" aria-current="page">
+    <a href="{% url 'manager-author-request-list' %}">{% trans 'Author requests' %}</a>
+  </li>
+{% endblock %}

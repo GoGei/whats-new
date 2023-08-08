@@ -8,6 +8,11 @@ from core.User.models import User
 from core.Utils.filter_fields import SearchFilterField, IsActiveFilterField, IsFilledFilterForm
 
 
+class StatusChoices(models.TextChoices):
+    STAFF = ('staff', _('Staff'))
+    SUPERUSER = ('superuser', _('Superuser'))
+
+
 class AdminFilterForm(django_filters.FilterSet):
     search = SearchFilterField()
     is_active = IsActiveFilterField()
@@ -18,9 +23,8 @@ class AdminFilterForm(django_filters.FilterSet):
     is_phone_filled = IsFilledFilterForm(label=_('Is phone filled'),
                                          method='is_phone_filled_filter')
     admin_status = django_filters.ChoiceFilter(label=_('Admin status'), method='admin_status_filter',
-                                               choices=((None, _('Select')), ('staff', _('Staff')),
-                                                        ('superuser', _('Superuser'))),
-                                               empty_label=None
+                                               choices=StatusChoices.choices,
+                                               empty_label=_('Please, select value')
                                                )
 
     def is_active_filter(self, queryset, name, value):
@@ -53,10 +57,6 @@ class AdminFilterForm(django_filters.FilterSet):
 
 
 class AdminForm(forms.ModelForm):
-    class StatusChoices(models.TextChoices):
-        STAFF = ('staff', _('Staff'))
-        SUPERUSER = ('superuser', _('Superuser'))
-
     status = forms.ChoiceField(choices=StatusChoices.choices)
 
     class Meta:
@@ -68,9 +68,9 @@ class AdminForm(forms.ModelForm):
     @classmethod
     def to_status(cls, admin) -> Optional[StatusChoices]:
         if admin.is_superuser:
-            return cls.StatusChoices.SUPERUSER
+            return StatusChoices.SUPERUSER
         elif admin.is_staff:
-            return cls.StatusChoices.STAFF
+            return StatusChoices.STAFF
         else:
             return None
 
