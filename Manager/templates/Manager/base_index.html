@@ -65,6 +65,12 @@
             <span class="menu-title">{% trans 'Author requests' %}</span>
           </a>
         </li>
+        <li class="nav-item {% block subscription-sidebar-menu %}{% endblock %}">
+          <a class="nav-link" href="{% url 'manager-subscription-list' %}">
+            <i class="menu-icon mdi mdi-information-outline"></i>
+            <span class="menu-title">{% trans 'Subscriptions' %}</span>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- End sidebar -->

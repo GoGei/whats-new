@@ -1,0 +1,6 @@
+{% load i18n %}
+{% if record.user %}
+  {% trans 'User' %}: <a href="{% url 'manager-users-view' record.user.id %}">{{ record.user.email }}</a>
+{% else %}
+  {% trans 'Email' %}: <a href="mailto:{{ record.email }}">{{ record.email }}</a>
+{% endif %}
