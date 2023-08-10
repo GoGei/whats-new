@@ -1,4 +1,6 @@
+from html import unescape
 from django.db import models
+from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 from core.Utils.Mixins.models import CrmMixin
 
@@ -63,6 +65,10 @@ class AuthorRequestComment(CrmMixin):
         comment = self.comment
         lim = self.COMMENT_STR_LIMIT
         end = self.END_COMMENT
+
+        decoded_content = unescape(comment)
+        comment = strip_tags(decoded_content)
+
         comment = comment if len(comment) <= lim else comment[:lim - len(end)] + end
         return comment
 

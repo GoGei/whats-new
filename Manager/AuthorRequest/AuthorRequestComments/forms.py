@@ -1,7 +1,8 @@
 import django_filters
 from django import forms
 from django.utils.translation import ugettext as _
-from core.AuthorRequest.models import AuthorRequest, AuthorRequestComment
+from ckeditor.widgets import CKEditorWidget
+from core.AuthorRequest.models import AuthorRequestComment
 
 
 class AuthorRequestCommentFilterForm(django_filters.FilterSet):
@@ -9,6 +10,8 @@ class AuthorRequestCommentFilterForm(django_filters.FilterSet):
 
 
 class AuthorRequestCommentForm(forms.ModelForm):
+    comment = forms.CharField(widget=CKEditorWidget())
+
     class Meta:
         model = AuthorRequestComment
         fields = ('comment',)
