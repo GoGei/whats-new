@@ -35,7 +35,7 @@
           <div class="form-group row">
             <label class="col-sm-2">{% trans 'Comment' %}</label>
             <div class="col-sm-10">
-              {{ comment.comment|default:'' }}
+              {{ comment.comment|safe|escape|default:'' }}
             </div>
           </div>
         </div>
