@@ -9,6 +9,8 @@
 {% endblock %}
 
 {% block action-area %}
+  <a type="button" class="btn btn-primary btn-md"
+     href="{% url 'manager-author-request-comment-edit' comment.id %}">{% trans 'Edit' %}</a>
   <a type="button" class="btn btn-success btn-md"
      href="{% url 'manager-author-request-view' author_request.id %}">{% trans 'Back to list' %}</a>
 {% endblock %}
