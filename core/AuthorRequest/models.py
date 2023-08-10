@@ -69,3 +69,6 @@ class AuthorRequestComment(CrmMixin):
     @property
     def label(self):
         return str(self)
+
+    def is_author(self, author) -> bool:
+        return author == self.user

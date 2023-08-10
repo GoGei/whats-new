@@ -1,0 +1,15 @@
+{% extends 'Manager/AuthorRequest/author_request_base.html' %}
+{% load i18n %}
+
+{% block pagetitle %}
+  {% trans 'Author requests comment' %}
+{% endblock %}
+
+{% block author-request-sidebar-menu %} active {% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item" aria-current="page">
+    <a href="{% url 'manager-author-request-view' author_request.id %}">{% trans 'Comments' %}</a>
+  </li>
+{% endblock %}

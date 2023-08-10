@@ -1,5 +1,5 @@
 import django_tables2 as tables
-from core.User.models import User
+from core.AuthorRequest.models import AuthorRequest
 
 
 class AuthorRequestTable(tables.Table):
@@ -15,7 +15,7 @@ class AuthorRequestTable(tables.Table):
                                     template_name='Manager/AuthorRequest/author_request_table_actions.html')
 
     class Meta:
-        model = User
+        model = AuthorRequest
         template_name = "django_tables2/bootstrap4.html"
         fields = (
             'id',
