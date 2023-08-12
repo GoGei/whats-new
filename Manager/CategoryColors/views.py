@@ -165,5 +165,5 @@ def category_color_export_to_fixture(request):
 @superuser_required
 def category_color_load_default_fixture(request):
     call_command('load_category_color_fixture')
-    messages.success(request, _(f'Category colors default fixture was successfully loaded'))
+    messages.success(request, _('Category colors default fixture was successfully loaded'))
     return redirect(reverse('manager-category-color-list', host='manager'))
