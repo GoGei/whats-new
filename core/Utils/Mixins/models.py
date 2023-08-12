@@ -47,24 +47,28 @@ class CrmMixin(models.Model):
     class Meta:
         abstract = True
 
-    def archive(self, archived_by=None):
+    def archive(self, archived_by=None, commit=True):
         self.archived_stamp = timezone.now()
         if archived_by:
             self.archived_by = archived_by
-        self.save()
+
+        if commit:
+            self.save()
         return self
 
-    def modify(self, modified_by=None):
+    def modify(self, modified_by=None, commit=True):
         self.modified_stamp = timezone.now()
         if modified_by:
             self.modified_by = modified_by
-        self.save()
+
+        if commit:
+            self.save()
         return self
 
-    def restore(self, restored_by=None):
+    def restore(self, restored_by=None, commit=True):
         self.archived_stamp = None
         self.archived_by = None
-        self.modify(restored_by)
+        self.modify(restored_by, commit=commit)
         return self
 
     def is_active(self) -> bool:

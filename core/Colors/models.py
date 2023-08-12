@@ -12,17 +12,17 @@ class ColorAbstract(CrmMixin):
 
     @classmethod
     def to_hex_color(cls, value):
-        value = value.strip().upper()
-        if '#' not in value:
-            value = '#' + value
+        _value = value.strip().upper()
+        if '#' not in _value:
+            _value = '#' + _value
 
         pattern = re.compile(r'^#([A-F0-9]{6})$')
-        result = pattern.match(value)
+        result = pattern.match(_value)
 
         if not result:
-            raise ValueError('It is not hex value')
+            raise ValueError(f'Passed value is not hex: {value}')
 
-        return value
+        return _value
 
     def __str__(self):
         return self.value
