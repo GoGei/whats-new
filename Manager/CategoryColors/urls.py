@@ -12,5 +12,5 @@ urlpatterns = [
     path(r'<int:color_id>/restore/', views.category_color_restore, name='manager-category-color-restore'),
 
     url(r'view-fixture/$', views.category_color_view_fixture, name='manager-category-color-view-fixture'),
-    # url(r'load-fixture/$', views.category_color_load_fixture, name='manager-category-color-load-fixture'),
+    url(r'load-fixture/$', views.category_color_load_fixture, name='manager-category-color-load-fixture'),
 ]

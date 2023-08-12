@@ -9,10 +9,10 @@
 {% endblock %}
 
 {% block action-area %}
-  {#  {% if request.user.is_superuser %}#}
-  {#    <a type="button" class="btn btn-primary btn-md"#}
-  {#       href="{% url 'manager-category-color-load-fixture' %}">{% trans 'Load fixture' %}</a>#}
-  {#  {% endif %}#}
+  {% if request.user.is_superuser %}
+    <a type="button" class="btn btn-primary btn-md"
+       href="{% url 'manager-category-color-load-fixture' %}">{% trans 'Load fixture' %}</a>
+  {% endif %}
   <a type="button" class="btn btn-success btn-md"
      href="{% url 'manager-category-color-list' %}">{% trans 'Back to list' %}</a>
 {% endblock %}

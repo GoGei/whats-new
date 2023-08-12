@@ -9,6 +9,10 @@
   <a type="button" class="btn btn-success btn-md" href="{% url 'manager-category-color-add' %}">{% trans 'Add' %}</a>
   <a type="button" class="btn btn-info btn-md"
      href="{% url 'manager-category-color-view-fixture' %}">{% trans 'View fixture' %}</a>
+  {% if request.user.is_superuser %}
+    <a type="button" class="btn btn-primary btn-md"
+       href="{% url 'manager-category-color-load-fixture' %}">{% trans 'Load fixture' %}</a>
+  {% endif %}
 {% endblock %}
 
 {% block content %}

@@ -1,8 +1,10 @@
+import json
 import django_filters
 from django import forms
 from django.utils.translation import ugettext as _
 from core.Colors.models import CategoryColor
 from core.Utils.filter_fields import SearchFilterField, IsActiveFilterField
+from core.Utils.Exporter.importer import CrmMixinJSONLoader
 
 
 class CategoryColorFilterForm(django_filters.FilterSet):
@@ -43,3 +45,36 @@ class CategoryColorFormAdd(CategoryColorForm):
 
 class CategoryColorFormEdit(CategoryColorForm):
     pass
+
+
+class CategoryColorImportForm(forms.Form):
+    file = forms.FileField(label=_('File fixture'), required=True,
+                           widget=forms.ClearableFileInput(attrs={'accept': '.json',
+                                                                  'class': 'form-control file-upload-info'}))
+
+    def clean(self):
+        data = self.cleaned_data
+        print('data', data)
+        file = data.get('file')
+
+        try:
+            content = json.loads(file.read().decode('utf-8'))
+            data['content'] = content
+        except UnicodeDecodeError:
+            self.add_error('file', _('File is not encoded with UTF-8'))
+        except (json.JSONDecodeError, ValueError, AttributeError):
+            self.add_error('file', _('File is not valid JSON'))
+
+        return data
+
+    def load(self):
+        context = self.cleaned_data['content']
+
+        load_fields = ('name', 'value')
+        get_by_fields = ('value',)
+        items, created_count = CrmMixinJSONLoader(model=CategoryColor,
+                                                  load_fields=load_fields,
+                                                  get_by_fields=get_by_fields,
+                                                  with_clear=False,
+                                                  set_activity=False).load(context)
+        return items, created_count
