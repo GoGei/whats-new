@@ -21,3 +21,8 @@ class CategoryColorTestCase(TestCase):
         obj = CategoryColorFactory.create()
         self.assertTrue(obj.value in str(obj))
         self.assertTrue(obj.value in obj.label)
+
+    def test_check_exists(self):
+        obj = CategoryColorFactory.create()
+        self.assertTrue(CategoryColor.check_exists(obj.value))
+        self.assertFalse(CategoryColor.check_exists(obj.value, obj))
