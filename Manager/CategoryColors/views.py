@@ -1,11 +1,13 @@
+import json
+from django_hosts import reverse
 from django.conf import settings
 from django.forms import model_to_dict
-from django_hosts import reverse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext as _, ungettext_lazy
 from django.contrib import messages
 
 from core.Utils.Access.decorators import manager_required, superuser_required
+from core.Colors.constants import CATEGORY_COLOR_DEFAULT_FIXTURE_PATH
 from core.Colors.models import CategoryColor
 from .forms import CategoryColorFilterForm, CategoryColorFormAdd, CategoryColorFormEdit
 from .tables import CategoryColorTable
@@ -40,7 +42,7 @@ def category_color_view(request, color_id):
     return render(request, 'Manager/CategoryColor/category_color_view.html', {'color': color})
 
 
-@superuser_required
+@manager_required
 def category_color_add(request):
     form_body = CategoryColorFormAdd(request.POST or None)
 
@@ -62,7 +64,7 @@ def category_color_add(request):
     return render(request, 'Manager/CategoryColor/category_color_add.html', {'form': form})
 
 
-@superuser_required
+@manager_required
 def category_color_edit(request, color_id):
     color = get_object_or_404(CategoryColor, pk=color_id)
 
@@ -107,3 +109,13 @@ def category_color_restore(request, color_id):
     color.restore(request.user)
     messages.success(request, _(f'Category color {color.value} was successfully restored'))
     return redirect(reverse('manager-category-color-list', host='manager'))
+
+
+@superuser_required
+def category_color_view_fixture(request):
+    with open(CATEGORY_COLOR_DEFAULT_FIXTURE_PATH, 'r') as f:
+        data = json.load(f)
+    return render(request, 'Manager/CategoryColor/category_color_view_fixture.html', {'data': data})
+
+# @superuser_required
+# category_color_load_fixture
