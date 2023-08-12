@@ -1,14 +1,19 @@
 import json
+
+from django.core.management import call_command
+from django.http import HttpResponse
 from django_hosts import reverse
 from django.conf import settings
 from django.forms import model_to_dict
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext as _, ungettext_lazy
 from django.contrib import messages
+from rest_framework.renderers import JSONRenderer
 
-from core.Utils.Access.decorators import manager_required, superuser_required
-from core.Colors.constants import CATEGORY_COLOR_DEFAULT_FIXTURE_PATH
 from core.Colors.models import CategoryColor
+from core.Colors.constants import CATEGORY_COLOR_DEFAULT_FIXTURE_PATH
+from core.Utils.Access.decorators import manager_required, superuser_required
+from core.Utils.Exporter.exporter import CrmMixinJSONExporter
 from .forms import CategoryColorFilterForm, CategoryColorFormAdd, CategoryColorFormEdit, CategoryColorImportForm
 from .tables import CategoryColorTable
 
@@ -143,3 +148,22 @@ def category_color_load_fixture(request):
     }
 
     return render(request, 'Manager/CategoryColor/category_color_load_fixture.html', {'form': form})
+
+
+@manager_required
+def category_color_export_to_fixture(request):
+    data = CrmMixinJSONExporter(model=CategoryColor, export_fields=('name', 'value')).export()
+    content = JSONRenderer().render(data)
+
+    response = HttpResponse(content, content_type='application/json')
+    filename = 'category_colors.json'
+    response['Content-Disposition'] = 'attachment; filename=%s' % filename
+    response['Cache-Control'] = 'no-cache'
+    return response
+
+
+@superuser_required
+def category_color_load_default_fixture(request):
+    call_command('load_category_color_fixture')
+    messages.success(request, _(f'Category colors default fixture was successfully loaded'))
+    return redirect(reverse('manager-category-color-list', host='manager'))

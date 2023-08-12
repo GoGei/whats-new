@@ -13,4 +13,8 @@ urlpatterns = [
 
     url(r'view-fixture/$', views.category_color_view_fixture, name='manager-category-color-view-fixture'),
     url(r'load-fixture/$', views.category_color_load_fixture, name='manager-category-color-load-fixture'),
+    url(r'export-to-fixture/$', views.category_color_export_to_fixture,
+        name='manager-category-color-export-to-fixture'),
+    url(r'load-default-fixture/$', views.category_color_load_default_fixture,
+        name='manager-category-color-load-default-fixture'),
 ]

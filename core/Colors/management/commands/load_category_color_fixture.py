@@ -32,7 +32,7 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, **options):
-        filepath = options.get('filepath', constants.CATEGORY_COLOR_DEFAULT_FIXTURE_PATH)
+        filepath = options.get('filepath') or constants.CATEGORY_COLOR_DEFAULT_FIXTURE_PATH
         with open(filepath, "r+") as f:
             data = json.load(f)
 

@@ -34,6 +34,6 @@ class Command(BaseCommand):
             return
 
         stamp = int(time.time())
-        filepath = options.get('filepath', constants.CATEGORY_COLOR_DEFAULT_FIXTURE_EXPORT_PATH % stamp)
+        filepath = options.get('filepath', None) or constants.CATEGORY_COLOR_DEFAULT_FIXTURE_EXPORT_PATH % stamp
         with open(filepath, "w+") as f:
             f.write(json.dumps(data))
