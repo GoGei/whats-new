@@ -77,12 +77,11 @@ class AdminForm(forms.ModelForm):
     def clean(self):
         data = super().clean()
         status = data.get('status')
-        choices = self.StatusChoices
 
-        if status == choices.STAFF:
+        if status == StatusChoices.STAFF:
             self.instance.is_staff = True
             self.instance.is_superuser = False
-        elif status == choices.SUPERUSER:
+        elif status == StatusChoices.SUPERUSER:
             self.instance.is_staff = True
             self.instance.is_superuser = True
         else:

@@ -24,6 +24,13 @@ class ColorAbstract(CrmMixin):
 
         return _value
 
+    @classmethod
+    def check_exists(cls, value, instance=None) -> bool:
+        qs = cls.objects.filter(value=value)
+        if instance:
+            qs = qs.exclude(id=instance.id)
+        return qs.exists()
+
     def __str__(self):
         return self.value
 

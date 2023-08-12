@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^admins/', include('Manager.Admins.urls')),
     url(r'^author-requests/', include('Manager.AuthorRequest.urls')),
     url(r'^subscriptions/', include('Manager.Subscription.urls')),
+    url(r'^category-colors/', include('Manager.CategoryColors.urls')),
 ]
