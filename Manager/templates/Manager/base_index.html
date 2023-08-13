@@ -80,14 +80,19 @@
           </a>
           <div class="collapse {% block settings-sidebar-menu-dropdown %}{% endblock %}" id="settings">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item">
+              <li class="nav-item {% block category-color-sidebar-menu %}{% endblock %}">
                 <a class="nav-link" href="{% url 'manager-category-color-list' %}">
                   {% trans 'Category colors' %}
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {% block post-color-sidebar-menu %}{% endblock %}">
                 <a class="nav-link" href="{% url 'manager-post-color-list' %}">
                   {% trans 'Post colors' %}
+                </a>
+              </li>
+              <li class="nav-item {% block contact-sidebar-menu %}{% endblock %}">
+                <a class="nav-link" href="{% url 'manager-contact-list' %}">
+                  {% trans 'Contacts' %}
                 </a>
               </li>
             </ul>

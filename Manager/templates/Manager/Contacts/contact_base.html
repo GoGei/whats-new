@@ -1,0 +1,17 @@
+{% extends 'Manager/base_index.html' %}
+{% load i18n %}
+
+{% block pagetitle %}
+  {% trans 'Contacts' %}
+{% endblock %}
+
+{% block settings-sidebar-menu %} active {% endblock %}
+{% block settings-sidebar-menu-dropdown %} show {% endblock %}
+{% block contact-sidebar-menu %} active {% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item" aria-current="page">
+    <a href="{% url 'manager-contact-list' %}">{% trans 'Contacts' %}</a>
+  </li>
+{% endblock %}

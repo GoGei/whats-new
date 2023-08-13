@@ -1,0 +1,9 @@
+{% if contact.contact_type == contact_types.email %}
+  <a href="mailto:{{ contact.text }}">{{ contact.text }}</a>
+{% elif contact.contact_type == contact_types.phone %}
+  <a href="tel:{{ contact.text }}">{{ contact.text }}</a>
+{% elif contact.contact_type == contact_types.link %}
+  <a href="{{ contact.text }}" target="_blank">{{ contact.text }}</a>
+{% else %}
+  {{ contact.text }} - {{ contact.get_contact_type_display }}
+{% endif %}
