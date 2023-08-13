@@ -2,12 +2,12 @@ import json
 import django_filters
 from django import forms
 from django.utils.translation import ugettext as _
-from core.Colors.models import CategoryColor
+from core.Colors.models import PostColor
 from core.Utils.filter_fields import SearchFilterField, IsActiveFilterField
 from core.Utils.Exporter.importer import CrmMixinJSONLoader
 
 
-class CategoryColorFilterForm(django_filters.FilterSet):
+class PostColorFilterForm(django_filters.FilterSet):
     search = SearchFilterField()
     is_active = IsActiveFilterField()
 
@@ -19,9 +19,9 @@ class CategoryColorFilterForm(django_filters.FilterSet):
                                            search_fields=('name', 'value'))
 
 
-class CategoryColorForm(forms.ModelForm):
+class PostColorForm(forms.ModelForm):
     class Meta:
-        model = CategoryColor
+        model = PostColor
         fields = ('name', 'value')
 
     def clean_value(self):
@@ -29,25 +29,25 @@ class CategoryColorForm(forms.ModelForm):
         value = data.get('value')
 
         try:
-            value = CategoryColor.to_hex_color(value)
+            value = PostColor.to_hex_color(value)
         except ValueError:
             self.add_error('value', _(f'Passed value is not hex: {value}'))
 
-        if CategoryColor.check_exists(value, instance=self.instance):
+        if PostColor.check_exists(value, instance=self.instance):
             self.add_error('value', _(f'Color with value "{value}" already exists'))
 
         return value
 
 
-class CategoryColorFormAdd(CategoryColorForm):
+class PostColorFormAdd(PostColorForm):
     pass
 
 
-class CategoryColorFormEdit(CategoryColorForm):
+class PostColorFormEdit(PostColorForm):
     pass
 
 
-class CategoryColorImportForm(forms.Form):
+class PostColorImportForm(forms.Form):
     file = forms.FileField(label=_('File fixture'), required=True,
                            widget=forms.ClearableFileInput(attrs={'accept': '.json',
                                                                   'class': 'form-control file-upload-info'}))
@@ -71,7 +71,7 @@ class CategoryColorImportForm(forms.Form):
 
         load_fields = ('name', 'value')
         get_by_fields = ('value',)
-        items, created_count = CrmMixinJSONLoader(model=CategoryColor,
+        items, created_count = CrmMixinJSONLoader(model=PostColor,
                                                   load_fields=load_fields,
                                                   get_by_fields=get_by_fields,
                                                   with_clear=False,
