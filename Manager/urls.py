@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^author-requests/', include('Manager.AuthorRequest.urls')),
     url(r'^subscriptions/', include('Manager.Subscription.urls')),
     url(r'^category-colors/', include('Manager.CategoryColors.urls')),
+    url(r'^post-colors/', include('Manager.PostColors.urls')),
 ]
