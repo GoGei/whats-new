@@ -1,0 +1,23 @@
+{% load i18n %}
+
+<div>
+  <a type="button" class="btn btn-primary btn-rounded btn-icon btn-sm" title="{% trans 'Edit' %}"
+     href="{% url "manager-contact-edit" record.id %}">
+    <i class="mdi mdi-pencil"></i>
+  </a>
+  <a type="button" class="btn btn-info btn-rounded btn-icon btn-sm" title="{% trans 'View' %}"
+     href="{% url "manager-contact-view" record.id %}">
+    <i class="mdi mdi-eye"></i>
+  </a>
+  {% if record.is_active %}
+    <a type="button" class="btn btn-warning btn-rounded btn-icon btn-sm" title="{% trans 'Archive' %}"
+       href="{% url "manager-contact-archive" record.id %}">
+      <i class="mdi mdi-trash-can"></i>
+    </a>
+  {% else %}
+    <a type="button" class="btn btn-info btn-rounded btn-icon btn-sm" title="{% trans 'Restore' %}"
+       href="{% url "manager-contact-restore" record.id %}">
+      <i class="mdi mdi-undo"></i>
+    </a>
+  {% endif %}
+</div>

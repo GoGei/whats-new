@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^subscriptions/', include('Manager.Subscription.urls')),
     url(r'^category-colors/', include('Manager.CategoryColors.urls')),
     url(r'^post-colors/', include('Manager.PostColors.urls')),
+    url(r'^contacts/', include('Manager.Contacts.urls')),
 ]
