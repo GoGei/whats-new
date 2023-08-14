@@ -15,6 +15,7 @@ class UserFeedbackTable(tables.Table):
             'first_name',
             'last_name',
             'created_stamp',
+            'status',
             'actions',
         )
         attrs = {"class": "table table-hover"}

@@ -34,5 +34,8 @@ def user_feedback_list(request):
 
 @manager_required
 def user_feedback_view(request, user_feedback_id):
-    user_feedback = get_object_or_404(UserFeedback, pk=user_feedback_id)
+    qs = UserFeedback.objects.select_related('admin').prefetch_related('userfeedbackreply_set')
+    user_feedback = get_object_or_404(qs, pk=user_feedback_id)
+    user_feedback.on_view_action(request.user)
+    user_feedback.refresh_from_db()
     return render(request, 'Manager/UserFeedback/user_feedback_view.html', {'user_feedback': user_feedback})
