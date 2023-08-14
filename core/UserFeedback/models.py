@@ -4,8 +4,8 @@ from core.Utils.Mixins.models import CrmMixin
 
 class UserFeedback(CrmMixin):
     email = models.EmailField(db_index=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50, db_index=True)
+    last_name = models.CharField(max_length=50, db_index=True)
     feedback = models.TextField(max_length=2048)
 
     class Meta:
