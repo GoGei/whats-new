@@ -6,4 +6,5 @@ from . import views
 urlpatterns = [
     url(r'$', views.user_feedback_list, name='manager-user-feedback-list'),
     path(r'<int:user_feedback_id>/', views.user_feedback_view, name='manager-user-feedback-view'),
+    path(r'<int:user_feedback_id>/reply/', views.user_feedback_reply, name='manager-user-feedback-reply'),
 ]

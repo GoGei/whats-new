@@ -27,11 +27,21 @@ class UserFeedback(CrmMixin):
     def label(self):
         return str(self)
 
+    @property
+    def can_be_replied(self):
+        return self.status != self.Status.COMMENTED
+
     def on_view_action(self, user):
         if self.status == self.Status.NEW:
             self.status = self.Status.VIEWED
             self.admin = user
             self.save()
+        return self
+
+    def on_reply_action(self, reply):
+        self.status = self.Status.COMMENTED
+        self.admin = reply.admin
+        self.save()
         return self
 
 

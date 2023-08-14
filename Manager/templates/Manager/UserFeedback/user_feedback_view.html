@@ -9,6 +9,10 @@
 {% endblock %}
 
 {% block action-area %}
+  {% if user_feedback.can_be_replied %}
+    <a type="button" class="btn btn-info btn-md"
+       href="{% url 'manager-user-feedback-reply' user_feedback.id %}">{% trans 'Reply' %}</a>
+  {% endif %}
   <a type="button" class="btn btn-success btn-md"
      href="{% url 'manager-user-feedback-list' %}">{% trans 'Back to list' %}</a>
 {% endblock %}
@@ -63,6 +67,12 @@
             <div class="col-sm-10">
               {{ user_feedback.feedback }}
             </div>
+          </div>
+
+        <div class="col">
+            {% for reply in replies %}
+              {% include 'Manager/UserFeedback/user_feedback_reply.html' with reply=reply %}
+            {% endfor %}
           </div>
         </div>
       </div>

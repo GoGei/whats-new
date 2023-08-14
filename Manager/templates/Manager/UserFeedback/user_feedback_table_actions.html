@@ -5,4 +5,10 @@
      href="{% url "manager-user-feedback-view" record.id %}">
     <i class="mdi mdi-eye"></i>
   </a>
+  {% if not record.can_be_replied_annotated %}
+    <a type="button" class="btn btn-success btn-rounded btn-icon btn-sm" title="{% trans 'Reply' %}"
+       href="{% url "manager-user-feedback-reply" record.id %}">
+      <i class="mdi mdi-reply"></i>
+    </a>
+  {% endif %}
 </div>
