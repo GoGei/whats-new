@@ -1,0 +1,6 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><a href="{% url 'manager-admins-view' reply.admin.id %}">{{ reply.admin.label }}</a></h5>
+    <p class="card-text">{{ reply.reply|safe|escape }}</p>
+  </div>
+</div>

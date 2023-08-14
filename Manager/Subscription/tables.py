@@ -1,5 +1,5 @@
 import django_tables2 as tables
-from core.User.models import User
+from core.Subscription.models import Subscription
 
 
 class SubscriptionTable(tables.Table):
@@ -9,7 +9,7 @@ class SubscriptionTable(tables.Table):
                                     template_name='Manager/Subscription/subscription_table_actions.html')
 
     class Meta:
-        model = User
+        model = Subscription
         template_name = "django_tables2/bootstrap4.html"
         fields = (
             'id',

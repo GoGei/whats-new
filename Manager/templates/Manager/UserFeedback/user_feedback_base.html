@@ -1,0 +1,15 @@
+{% extends 'Manager/base_index.html' %}
+{% load i18n %}
+
+{% block pagetitle %}
+  {% trans 'User feedbacks' %}
+{% endblock %}
+
+{% block user-feedback-sidebar-menu %} active {% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item" aria-current="page">
+    <a href="{% url 'manager-user-feedback-list' %}">{% trans 'User feedbacks' %}</a>
+  </li>
+{% endblock %}

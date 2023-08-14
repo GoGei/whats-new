@@ -98,6 +98,12 @@
             </ul>
           </div>
         </li>
+        <li class="nav-item {% block user-feedback-sidebar-menu %}{% endblock %}">
+          <a class="nav-link" href="{% url 'manager-user-feedback-list' %}">
+            <i class="menu-icon mdi mdi-message-reply-text"></i>
+            <span class="menu-title">{% trans 'User feedback' %}</span>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- End sidebar -->
