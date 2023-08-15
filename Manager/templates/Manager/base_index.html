@@ -104,6 +104,12 @@
             <span class="menu-title">{% trans 'User feedback' %}</span>
           </a>
         </li>
+        <li class="nav-item {% block category-sidebar-menu %}{% endblock %}">
+          <a class="nav-link" href="{% url 'manager-category-list' %}">
+            <i class="menu-icon mdi mdi mdi-format-list-bulleted"></i>
+            <span class="menu-title">{% trans 'Categories' %}</span>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- End sidebar -->

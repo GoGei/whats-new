@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^post-colors/', include('Manager.PostColors.urls')),
     url(r'^contacts/', include('Manager.Contacts.urls')),
     url(r'^user-feedback/', include('Manager.UserFeedback.urls')),
+    url(r'^categories/', include('Manager.Category.urls')),
 ]
