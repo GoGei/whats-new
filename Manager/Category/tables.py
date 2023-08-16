@@ -3,6 +3,8 @@ from core.Category.models import Category
 
 
 class CategoryTable(tables.Table):
+    color = tables.TemplateColumn(orderable=True, attrs={"td": {"style": "width: 15%"}}, order_by=('-color__name',),
+                                  template_name='Manager/Category/category_table_color.html')
     is_active = tables.BooleanColumn(orderable=True, order_by=('-archived_stamp',))
     actions = tables.TemplateColumn(orderable=False, attrs={"td": {"style": "width: 15%"}},
                                     template_name='Manager/Category/category_table_actions.html')
@@ -14,6 +16,7 @@ class CategoryTable(tables.Table):
             'id',
             'name',
             'position',
+            'color',
             'is_active',
             'actions',
         )
