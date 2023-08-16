@@ -13,7 +13,7 @@ from .tables import CategoryTable
 
 @manager_required
 def category_list(request):
-    qs = Category.objects.all().order_by('position', 'name_data')
+    qs = Category.objects.select_related('color').all().order_by('position', 'name_data')
 
     filter_form = CategoryFilterForm(request.GET, queryset=qs, request=request)
     qs = filter_form.qs
@@ -49,13 +49,13 @@ def category_add(request):
 
     if form_body.is_valid():
         category = form_body.save()
-        messages.success(request, _(f'Category category {category.name} was successfully created'))
+        messages.success(request, _(f'Category {category.name} was successfully created'))
         return redirect(reverse('manager-category-list', host='manager'))
 
     form = {
         'body': form_body,
         'buttons': {'save': True, 'cancel': True},
-        'title': _('Add category category'),
+        'title': _('Add category'),
         'description': _('Please, fill in the form below to add a category'),
     }
 
@@ -97,7 +97,7 @@ def category_archive(request, category_id):
                                                  'This category is used in posts %s times!') % posts.count())
     else:
         category.archive(request.user)
-        messages.success(request, _(f'Category category {category.name} was successfully archived'))
+        messages.success(request, _(f'Category {category.name} was successfully archived'))
     return redirect(reverse('manager-category-list', host='manager'))
 
 

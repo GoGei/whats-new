@@ -1,4 +1,5 @@
 from django.conf.urls import url, include
+from Api.routers import admin_routers
 
 urlpatterns = [
     url(r'', include('urls')),
@@ -13,4 +14,6 @@ urlpatterns = [
     url(r'^contacts/', include('Manager.Contacts.urls')),
     url(r'^user-feedback/', include('Manager.UserFeedback.urls')),
     url(r'^categories/', include('Manager.Category.urls')),
+
+    url(r'^api/v1/', include((admin_routers.router_v1.urls, 'api-admin-v1'), namespace='api-admin-v1')),
 ]
