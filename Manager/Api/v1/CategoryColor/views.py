@@ -1,6 +1,6 @@
 from rest_framework import filters
 
-from Api.Admin.base_views import AdminViewSet
+from Manager.Api.base_views import AdminViewSet
 from core.Colors.models import CategoryColor
 from .serializers import CategoryColorSerializer
 
