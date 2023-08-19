@@ -128,6 +128,8 @@ LANGUAGE_FALLBACK_CODE = 'en-es'
 
 LANGUAGES = (
     ('en', _('English')),
+    ('ru', _('Russian')),
+    ('uk', _('Ukrainian')),
 )
 DEFAULT_LANGUAGE = 'en'
 
