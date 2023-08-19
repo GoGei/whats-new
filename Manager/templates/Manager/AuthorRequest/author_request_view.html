@@ -1,0 +1,80 @@
+{% extends 'Manager/AuthorRequest/author_request_base.html' %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item" aria-current="page">
+    <a href="{% url 'manager-author-request-view' author_request.id %}">{% trans 'View' %}</a>
+  </li>
+{% endblock %}
+
+{% block action-area %}
+  {% if author_request.is_allowed_to_interact %}
+    <a type="button" class="btn btn-primary btn-md"
+       href="{% url 'manager-author-request-approve' author_request.id %}">{% trans 'Approve' %}</a>
+    <a type="button" class="btn btn-warning btn-md"
+       href="{% url 'manager-author-request-reject' author_request.id %}">{% trans 'Reject' %}</a>
+    <a type="button" class="btn btn-info btn-md"
+     href="{% url 'manager-author-request-comment' author_request.id %}">{% trans 'Comment' %}</a>
+  {% endif %}
+  <a type="button" class="btn btn-success btn-md"
+     href="{% url 'manager-author-request-list' %}">{% trans 'Back to list' %}</a>
+{% endblock %}
+
+{% block content %}
+  <div class="grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'ID' %}</label>
+            <div class="col-sm-10">
+              {{ author_request.id|default:'' }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Email' %}</label>
+            <div class="col-sm-10">
+              <a href="mailto:{{ author_request.email }}">{{ author_request.email|default:'' }}</a>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Phone' %}</label>
+            <div class="col-sm-10">
+              <a href="tel:{{ author_request.phone }}">{{ author_request.phone|default:'' }}</a>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'First name' %}</label>
+            <div class="col-sm-10">
+              {{ author_request.first_name|default:'' }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Last name' %}</label>
+            <div class="col-sm-10">
+              {{ author_request.last_name|default:'' }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Working experience' %}</label>
+            <div class="col-sm-10">
+              {{ author_request.get_working_experience_display|default:'' }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Status' %}</label>
+            <div class="col-sm-10">
+              {{ author_request.get_status_display|default:'' }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            {% include 'smartadmin/tables/table.html' with table=table %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'Manager/Category/category_base.html' %}
+{% load i18n static %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item" aria-current="page">
+    <a href="{% url 'manager-category-list' %}">
+      {% trans 'Add' %}
+    </a>
+  </li>
+{% endblock %}
+
+{% block action-area %}
+  <a type="button" class="btn btn-success btn-md"
+     href="{% url 'manager-category-list' %}">{% trans 'Back to list' %}</a>
+{% endblock %}
+
+{% block extrajs %}
+  <script>
+    $(document).ready(function () {
+        select2RenderField($('#id_color'));
+    });
+  </script>
+{% endblock %}
+
+{% block content %}
+  <div class="grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        {% include 'smartadmin/forms/form.html' with form=form %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

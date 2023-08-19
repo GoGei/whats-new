@@ -1,0 +1,12 @@
+{% load i18n %}
+
+{% with record.get_all_categories as categories %}
+  {% for category in categories %}
+    <a href="{% url 'manager-category-view' category.id %}">
+      {{ category.name }}
+    </a>
+    {% if not forloop.last %}, {% endif %}
+  {% empty %}
+    {% trans 'No categories' %}
+  {% endfor %}
+{% endwith %}

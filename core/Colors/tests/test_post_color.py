@@ -21,3 +21,8 @@ class PostColorTestCase(TestCase):
         obj = PostColorFactory.create()
         self.assertTrue(obj.value in str(obj))
         self.assertTrue(obj.value in obj.label)
+
+    def test_check_exists(self):
+        obj = PostColorFactory.create()
+        self.assertTrue(PostColor.check_exists(obj.value))
+        self.assertFalse(PostColor.check_exists(obj.value, obj))

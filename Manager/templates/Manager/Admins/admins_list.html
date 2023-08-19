@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block action-area %}
-  <a type="button" class="btn btn-success btn-md" href="{% url 'manager-admins-add' %}">{% trans 'Add' %}</a>
+  <a type="button" class="btn btn-success btn-md" href="{% url 'manager-admins-add' %}">
+    {% trans 'Add' %}
+  </a>
 {% endblock %}
 
 {% block content %}

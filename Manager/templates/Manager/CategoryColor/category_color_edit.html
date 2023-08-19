@@ -1,0 +1,21 @@
+{% extends 'Manager/CategoryColor/category_color_base.html' %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item" aria-current="page">
+    <a href="{% url 'manager-category-color-view' color.id %}">
+      {% trans 'Edit' %}: {{ color.name }}
+    </a>
+  </li>
+{% endblock %}
+
+{% block content %}
+  <div class="grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        {% include 'smartadmin/forms/form.html' with form=form %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

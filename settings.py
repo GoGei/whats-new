@@ -199,7 +199,24 @@ CKEDITOR_CONFIGS = {
     },
     'full': {
         'toolbar': 'full',
-    }
+    },
+    'user_feedback_reply': {
+        "removePlugins": "stylesheetparser",
+        'toolbar': [
+            ['Undo', 'Redo',
+             '-', 'Bold', 'Italic', 'Underline',
+             '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock',
+             ],
+            ['HorizontalRule',
+             '-', 'BulletedList', 'NumberedList',
+             '-', 'Cut', 'Copy', 'Paste', 'PasteText',
+             ],
+            ['Maximize']
+        ],
+        'toolbarCanCollapse': True,
+        'width': '100%',
+        "allowedContent": True,
+    },
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

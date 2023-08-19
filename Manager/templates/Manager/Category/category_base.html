@@ -1,0 +1,15 @@
+{% extends 'Manager/base_index.html' %}
+{% load i18n %}
+
+{% block pagetitle %}
+  {% trans 'Categories' %}
+{% endblock %}
+
+{% block category-sidebar-menu %} active {% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item" aria-current="page">
+    <a href="{% url 'manager-category-list' %}">{% trans 'Categories' %}</a>
+  </li>
+{% endblock %}

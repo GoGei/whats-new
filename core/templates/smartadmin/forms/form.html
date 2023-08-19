@@ -6,7 +6,8 @@
   <p class="card-description">{{ form.description }}</p>
 {% endif %}
 
-<form action="{{ form.action_url }}" method="{{ form.method|default:'post' }}" novalidate class="forms-sample">
+<form action="{{ form.action_url }}" method="{{ form.method|default:'post' }}" novalidate class="forms-sample"
+      enctype="multipart/form-data">
   {% csrf_token %}
   {% include 'smartadmin/forms/non_field_error_block.html' with form=form.body %}
   {{ form.body.media }}

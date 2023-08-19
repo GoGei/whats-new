@@ -26,3 +26,15 @@ class AuthorRequestTests(TestCase):
 
         self.assertTrue(obj.first_name in obj.label)
         self.assertTrue(obj.last_name in obj.label)
+
+    def test_approve(self):
+        obj = AuthorRequestFactory.create()
+        obj.approve()
+        self.assertTrue(obj.status == AuthorRequest.StatusChoices.APPROVED)
+        self.assertTrue(obj.is_active)
+
+    def test_cancel(self):
+        obj = AuthorRequestFactory.create()
+        obj.cancel()
+        self.assertTrue(obj.status == AuthorRequest.StatusChoices.CANCELED)
+        self.assertFalse(obj.is_active)

@@ -8,3 +8,8 @@
 .breadcrumb {
     border: none;
 }
+
+.breadcrumb-last-item {
+    font-weight: bold; /* Emulate "strong" font weight */
+    color: #333; /* Emulate strong color */
+}

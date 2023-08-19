@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<div>
+  <a type="button" class="btn btn-info btn-rounded btn-icon btn-sm" title="{% trans 'View' %}"
+     href="{% url "manager-author-request-view" record.id %}">
+    <i class="mdi mdi-eye"></i>
+  </a>
+  {% if record.is_allowed_to_interact %}
+    <a type="button" class="btn btn-success btn-rounded btn-icon btn-sm"
+       href="{% url 'manager-author-request-approve' record.id %}" title="{% trans 'Approve' %}">
+      <i class="fa fa-thumbs-up"></i>
+    </a>
+    <a type="button" class="btn btn-warning btn-rounded btn-icon btn-sm"
+       href="{% url 'manager-author-request-reject' record.id %}" title="{% trans 'Reject' %}">
+      <i class="fa fa-thumbs-down"></i>
+    </a>
+    <a type="button" class="btn btn-info btn-rounded btn-icon btn-sm"
+       href="{% url 'manager-author-request-comment' record.id %}" title="{% trans 'Comment' %}">
+      <i class="mdi mdi-reply"></i>
+    </a>
+  {% endif %}
+</div>

@@ -29,8 +29,193 @@
 
 </head>
 <body>
+
 <div class="container-scroller">
-  {% include 'Manager/base_navbar.html' %}
+  <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+      <div class="me-3">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+      <div>
+        <a class="navbar-brand brand-logo" href="{% url 'manager-index' %}">
+          <img src="{% static 'admin/images/logo.svg' %}" alt="logo"/>
+        </a>
+        <a class="navbar-brand brand-logo-mini" href="{% url 'manager-index' %}">
+          <img src="{% static 'admin/images/logo-mini.svg' %}" alt="logo"/>
+        </a>
+      </div>
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-top">
+      <ul class="navbar-nav">
+        <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
+          <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">John Doe</span></h1>
+          <h3 class="welcome-sub-text">Your performance summary this week </h3>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown d-none d-lg-block">
+          <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown"
+             href="#" data-bs-toggle="dropdown" aria-expanded="false"> Select Category </a>
+          <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+               aria-labelledby="messageDropdown">
+            <a class="dropdown-item py-3">
+              <p class="mb-0 font-weight-medium float-left">Select category</p>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item preview-item">
+              <div class="preview-item-content flex-grow py-2">
+                <p class="preview-subject ellipsis font-weight-medium text-dark">Bootstrap Bundle </p>
+                <p class="fw-light small-text mb-0">This is a Bundle featuring 16 unique dashboards</p>
+              </div>
+            </a>
+            <a class="dropdown-item preview-item">
+              <div class="preview-item-content flex-grow py-2">
+                <p class="preview-subject ellipsis font-weight-medium text-dark">Angular Bundle</p>
+                <p class="fw-light small-text mb-0">Everything you’ll ever need for your Angular
+                  projects</p>
+              </div>
+            </a>
+            <a class="dropdown-item preview-item">
+              <div class="preview-item-content flex-grow py-2">
+                <p class="preview-subject ellipsis font-weight-medium text-dark">VUE Bundle</p>
+                <p class="fw-light small-text mb-0">Bundle of 6 Premium Vue Admin Dashboard</p>
+              </div>
+            </a>
+            <a class="dropdown-item preview-item">
+              <div class="preview-item-content flex-grow py-2">
+                <p class="preview-subject ellipsis font-weight-medium text-dark">React Bundle</p>
+                <p class="fw-light small-text mb-0">Bundle of 8 Premium React Admin Dashboard</p>
+              </div>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item d-none d-lg-block">
+          <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
+              <span class="input-group-addon input-group-prepend border-right">
+                <span class="icon-calendar input-group-text calendar-icon"></span>
+              </span>
+            <input type="text" class="form-control">
+          </div>
+        </li>
+        <li class="nav-item">
+          <form class="search-form" action="#">
+            <i class="icon-search"></i>
+            <input type="search" class="form-control" placeholder="Search Here" title="Search here">
+          </form>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+            <i class="icon-mail icon-lg"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+               aria-labelledby="notificationDropdown">
+            <a class="dropdown-item py-3 border-bottom">
+              <p class="mb-0 font-weight-medium float-left">You have 4 new notifications </p>
+              <span class="badge badge-pill badge-primary float-right">View all</span>
+            </a>
+            <a class="dropdown-item preview-item py-3">
+              <div class="preview-thumbnail">
+                <i class="mdi mdi-alert m-auto text-primary"></i>
+              </div>
+              <div class="preview-item-content">
+                <h6 class="preview-subject fw-normal text-dark mb-1">Application Error</h6>
+                <p class="fw-light small-text mb-0"> Just now </p>
+              </div>
+            </a>
+            <a class="dropdown-item preview-item py-3">
+              <div class="preview-thumbnail">
+                <i class="mdi mdi-settings m-auto text-primary"></i>
+              </div>
+              <div class="preview-item-content">
+                <h6 class="preview-subject fw-normal text-dark mb-1">Settings</h6>
+                <p class="fw-light small-text mb-0"> Private message </p>
+              </div>
+            </a>
+            <a class="dropdown-item preview-item py-3">
+              <div class="preview-thumbnail">
+                <i class="mdi mdi-airballoon m-auto text-primary"></i>
+              </div>
+              <div class="preview-item-content">
+                <h6 class="preview-subject fw-normal text-dark mb-1">New user registration</h6>
+                <p class="fw-light small-text mb-0"> 2 days ago </p>
+              </div>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown"
+             aria-expanded="false">
+            <i class="icon-bell"></i>
+            <span class="count"></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+               aria-labelledby="countDropdown">
+            <a class="dropdown-item py-3">
+              <p class="mb-0 font-weight-medium float-left">You have 7 unread mails </p>
+              <span class="badge badge-pill badge-primary float-right">View all</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <img src="images/faces/face10.jpg" alt="image" class="img-sm profile-pic">
+              </div>
+              <div class="preview-item-content flex-grow py-2">
+                <p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
+                <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
+              </div>
+            </a>
+            <a class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <img src="images/faces/face12.jpg" alt="image" class="img-sm profile-pic">
+              </div>
+              <div class="preview-item-content flex-grow py-2">
+                <p class="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
+                <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
+              </div>
+            </a>
+            <a class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <img src="images/faces/face1.jpg" alt="image" class="img-sm profile-pic">
+              </div>
+              <div class="preview-item-content flex-grow py-2">
+                <p class="preview-subject ellipsis font-weight-medium text-dark">Travis Jenkins </p>
+                <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
+              </div>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item dropdown d-none d-lg-block user-dropdown">
+          <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+            <img class="img-xs rounded-circle" src="images/faces/face8.jpg" alt="Profile image"> </a>
+          <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+            <div class="dropdown-header text-center">
+              <img class="img-md rounded-circle" src="images/faces/face8.jpg" alt="Profile image">
+              <p class="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
+              <p class="fw-light text-muted mb-0">allenmoreno@gmail.com</p>
+            </div>
+            <a class="dropdown-item"><i
+                class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> {% trans 'My Profile' %}
+              <span class="badge badge-pill badge-danger">1</span></a>
+            <a class="dropdown-item"><i
+                class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> {% trans 'Messages' %}</a>
+            <a class="dropdown-item"><i
+                class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i>
+              {% trans 'Activity' %}</a>
+            <a class="dropdown-item"><i
+                class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> {% trans 'FAQ' %}</a>
+            <a class="dropdown-item" href="{% url 'manager-logout' %}">
+              <i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i> {% trans 'Sign Out' %}</a>
+          </div>
+        </li>
+      </ul>
+      <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+              data-bs-toggle="offcanvas">
+        <span class="mdi mdi-menu"></span>
+      </button>
+    </div>
+  </nav>
 
   <!-- partial -->
   <div class="container-fluid page-body-wrapper">
@@ -57,6 +242,57 @@
           <a class="nav-link" href="{% url 'manager-admins-list' %}">
             <i class="menu-icon mdi mdi-account-star"></i>
             <span class="menu-title">{% trans 'Admins' %}</span>
+          </a>
+        </li>
+        <li class="nav-item {% block author-request-sidebar-menu %}{% endblock %}">
+          <a class="nav-link" href="{% url 'manager-author-request-list' %}">
+            <i class="menu-icon mdi mdi mdi-account-multiple-plus"></i>
+            <span class="menu-title">{% trans 'Author requests' %}</span>
+          </a>
+        </li>
+        <li class="nav-item {% block subscription-sidebar-menu %}{% endblock %}">
+          <a class="nav-link" href="{% url 'manager-subscription-list' %}">
+            <i class="menu-icon mdi mdi-information-outline"></i>
+            <span class="menu-title">{% trans 'Subscriptions' %}</span>
+          </a>
+        </li>
+        <li class="nav-item {% block settings-sidebar-menu %}{% endblock %}">
+          <a class="nav-link" data-bs-toggle="collapse" href="#settings" aria-expanded="false"
+             aria-controls="form-elements">
+            <i class="menu-icon mdi mdi mdi-settings"></i>
+            <span class="menu-title">{% trans 'Settings' %}</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse {% block settings-sidebar-menu-dropdown %}{% endblock %}" id="settings">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item {% block category-color-sidebar-menu %}{% endblock %}">
+                <a class="nav-link" href="{% url 'manager-category-color-list' %}">
+                  {% trans 'Category colors' %}
+                </a>
+              </li>
+              <li class="nav-item {% block post-color-sidebar-menu %}{% endblock %}">
+                <a class="nav-link" href="{% url 'manager-post-color-list' %}">
+                  {% trans 'Post colors' %}
+                </a>
+              </li>
+              <li class="nav-item {% block contact-sidebar-menu %}{% endblock %}">
+                <a class="nav-link" href="{% url 'manager-contact-list' %}">
+                  {% trans 'Contacts' %}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item {% block user-feedback-sidebar-menu %}{% endblock %}">
+          <a class="nav-link" href="{% url 'manager-user-feedback-list' %}">
+            <i class="menu-icon mdi mdi-message-reply-text"></i>
+            <span class="menu-title">{% trans 'User feedback' %}</span>
+          </a>
+        </li>
+        <li class="nav-item {% block category-sidebar-menu %}{% endblock %}">
+          <a class="nav-link" href="{% url 'manager-category-list' %}">
+            <i class="menu-icon mdi mdi mdi-format-list-bulleted"></i>
+            <span class="menu-title">{% trans 'Categories' %}</span>
           </a>
         </li>
       </ul>
@@ -117,27 +353,24 @@
 <script src="{% static 'js/holder.min.js' %}"></script>
 <script src="{% static 'js/jquery.inputmask.min.js' %}"></script>
 
+<!-- plugins -->
 <script src="{% static 'admin/staradmin/vendors/js/vendor.bundle.base.js' %}"></script>
-<script src="{% static 'admin/staradmin/vendors/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'admin/staradmin/vendors/select2/select2.min.js' %}"></script>
+<script src="{% static 'admin/staradmin/vendors/typeahead.js/typeahead.bundle.min.js' %}"></script>
 <script src="{% static 'admin/staradmin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js' %}"></script>
-<script src="{% static 'admin/staradmin/vendors/progressbar.js/progressbar.min.js' %}"></script>
 
-<script src="{% static 'admin/staradmin/js/off-canvas.js' %}"></script>
-<script src="{% static 'admin/staradmin/js/hoverable-collapse.js' %}"></script>
 <script src="{% static 'admin/staradmin/js/template.js' %}"></script>
 <script src="{% static 'admin/staradmin/js/settings.js' %}"></script>
 <script src="{% static 'admin/staradmin/js/todolist.js' %}"></script>
-<script src="{% static 'admin/staradmin/js/file-upload.js' %}"></script>
-<script src="{% static 'admin/staradmin/js/typeahead.js' %}"></script>
-<script src="{% static 'admin/staradmin/js/select2.js' %}"></script>
-<script src="{% static 'admin/staradmin/js/chart.js' %}"></script>
 <script src="{% static 'admin/staradmin/js/dashboard.js' %}"></script>
-<script src="{% static 'admin/staradmin/js/Chart.roundedBarCharts.js' %}"></script>
+<!-- End plugins -->
 
 <script src="{% static 'admin/js/admin.js' %}"></script>
+<script src="{% static 'admin/js/select2-render-field.js' %}"></script>
 
 {% block extrajs %}
 {% endblock %}
+
 </body>
 </html>
 
