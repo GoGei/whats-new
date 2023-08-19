@@ -17,3 +17,9 @@ urlpatterns = [
 
     url(r'^api/', include((api_urls, 'manager-api-v1'), namespace='manager-api-v1')),
 ]
+
+from . import test
+
+urlpatterns += [
+    url(r'test/$', test.manager_test, name='manager-test'),
+]
