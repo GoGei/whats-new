@@ -21,7 +21,7 @@ $.ajaxSetup({
 
 $(document).ready(function () {
     // $('.select2').select2();
-    $('.breadcrumb li:last-child').addClass('active');
+    $('.breadcrumb li:last-child').addClass('active').addClass('breadcrumb-last-item');
 });
 
 const DEFAULT_PAGE_SIZE = 50;

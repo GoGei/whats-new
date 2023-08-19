@@ -4,7 +4,9 @@
 {% block breadcrumbs %}
   {{ block.super }}
   <li class="breadcrumb-item" aria-current="page">
-    <a href="{% url 'manager-subscription-view' subscription.id %}">{% trans 'View' %}</a>
+    <a href="{% url 'manager-subscription-view' subscription.id %}">
+      {% trans 'View' %}: {{ subscription.email }}
+    </a>
   </li>
 {% endblock %}
 

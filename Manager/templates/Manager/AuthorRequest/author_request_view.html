@@ -14,9 +14,9 @@
        href="{% url 'manager-author-request-approve' author_request.id %}">{% trans 'Approve' %}</a>
     <a type="button" class="btn btn-warning btn-md"
        href="{% url 'manager-author-request-reject' author_request.id %}">{% trans 'Reject' %}</a>
-  {% endif %}
-  <a type="button" class="btn btn-info btn-md"
+    <a type="button" class="btn btn-info btn-md"
      href="{% url 'manager-author-request-comment' author_request.id %}">{% trans 'Comment' %}</a>
+  {% endif %}
   <a type="button" class="btn btn-success btn-md"
      href="{% url 'manager-author-request-list' %}">{% trans 'Back to list' %}</a>
 {% endblock %}

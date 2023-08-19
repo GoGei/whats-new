@@ -4,7 +4,9 @@
 {% block breadcrumbs %}
   {{ block.super }}
   <li class="breadcrumb-item" aria-current="page">
-    <strong>{% trans 'Edit' %} {{ color.value }}</strong>
+    <a href="{% url 'manager-post-color-view' color.id %}">
+      {% trans 'Edit' %} {{ color.name }}
+    </a>
   </li>
 {% endblock %}
 

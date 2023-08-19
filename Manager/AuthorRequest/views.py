@@ -68,7 +68,7 @@ def author_request_approve(request, author_request_id):
     author_request = get_object_or_404(AuthorRequest, pk=author_request_id)
     author_request.approve(request.user)
     messages.success(request, _(f'Request {author_request_id} was successfully approved'))
-    return redirect(reverse('manager-author-request-view', args=[author_request_id], host='manager'))
+    return redirect(reverse('manager-author-request-list', host='manager'))
 
 
 @manager_required
@@ -76,4 +76,4 @@ def author_request_reject(request, author_request_id):
     author_request = get_object_or_404(AuthorRequest, pk=author_request_id)
     author_request.reject(request.user)
     messages.success(request, _(f'Request {author_request_id} was successfully rejected'))
-    return redirect(reverse('manager-author-request-view', args=[author_request_id], host='manager'))
+    return redirect(reverse('manager-author-request-list', host='manager'))
