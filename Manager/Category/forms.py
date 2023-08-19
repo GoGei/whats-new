@@ -12,7 +12,7 @@ class CategoryFilterForm(django_filters.FilterSet):
     is_active = IsActiveFilterField()
     color = django_filters.ModelChoiceFilter(
         label=_('Color'),
-        queryset=CategoryColor.objects.active(),
+        queryset=CategoryColor.objects.all(),
         empty_label=_('Select a color'),
         widget=forms.Select(
             attrs={'class': 'form-control select2',
