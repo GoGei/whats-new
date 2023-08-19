@@ -7,12 +7,12 @@ from django.conf import settings
 from Manager.Api.routers.router_v1 import router_v1
 
 api_urlpatterns = [
-    url(r'^v1/', include((router_v1.urls, 'Api'), namespace='api')),
+    url(r'^api/v1/', include((router_v1.urls, 'Api'), namespace='api')),
 ]
-api_url = '%s://admin%s' % (settings.SITE_SCHEME, settings.PARENT_HOST)
+api_url = '%s://manager%s/api/v1' % (settings.SITE_SCHEME, settings.PARENT_HOST)
 
 if settings.HOST_PORT:
-    api_url = '%s://admin%s:%s' % (settings.SITE_SCHEME, settings.PARENT_HOST, settings.HOST_PORT)
+    api_url = '%s://manager%s:%s/api/v1' % (settings.SITE_SCHEME, settings.PARENT_HOST, settings.HOST_PORT)
 
 schema_view_v1 = get_schema_view(
     openapi.Info(

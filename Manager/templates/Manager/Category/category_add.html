@@ -1,5 +1,5 @@
 {% extends 'Manager/Category/category_base.html' %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -11,6 +11,14 @@
 {% block action-area %}
   <a type="button" class="btn btn-success btn-md"
      href="{% url 'manager-category-list' %}">{% trans 'Back to list' %}</a>
+{% endblock %}
+
+{% block extrajs %}
+  <script>
+    $(document).ready(function () {
+        select2RenderField($('#id_color'));
+    });
+  </script>
 {% endblock %}
 
 {% block content %}

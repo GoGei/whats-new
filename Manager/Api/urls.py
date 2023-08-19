@@ -8,7 +8,7 @@ app_name = 'manager-api'
 urlpatterns = [
     url(r'^', include('urls')),
     url(r'^', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^v1/', include((router_v1.router_v1.urls, 'api'), namespace='manager-api-v1')),
+    url(r'^v1/', include((router_v1.router_v1.urls, 'api-v1'), namespace='api-v1')),
 ]
 
 if settings.API_DOCUMENTATION:
