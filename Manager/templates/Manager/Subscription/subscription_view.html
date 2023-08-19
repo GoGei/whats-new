@@ -50,9 +50,10 @@
                   {% for category in subscription.get_all_categories %}
                     <div class="row">
                       <div class="col">
-                        {#                <a href="{% url 'manager-category-view' category.id %}">{{ category.name }}</a>#}
-                        {{ category.name }} {% if not category.is_active %}
-                        <span class="text-danger">({% trans 'Not active' %})</span>{% endif %}
+                        <a href="{% url 'manager-category-view' category.id %}">
+                          {% trans 'Category' %}: {{ category.name }} {% if not category.is_active %}
+                          <span class="text-danger">({% trans 'Not active' %})</span>{% endif %}
+                        </a>
                       </div>
                     </div>
                   {% endfor %}
