@@ -23,3 +23,5 @@ $(document).ready(function () {
     // $('.select2').select2();
     $('.breadcrumb li:last-child').addClass('active');
 });
+
+const DEFAULT_PAGE_SIZE = 50;

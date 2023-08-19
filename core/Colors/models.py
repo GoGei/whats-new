@@ -32,7 +32,7 @@ class ColorAbstract(CrmMixin):
         return qs.exists()
 
     def __str__(self):
-        return self.value
+        return f'{self.name} - {self.value}'
 
     @property
     def label(self):

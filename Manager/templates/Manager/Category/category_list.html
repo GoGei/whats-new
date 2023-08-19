@@ -1,5 +1,5 @@
 {% extends 'Manager/Category/category_base.html' %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -7,6 +7,14 @@
 
 {% block action-area %}
   <a type="button" class="btn btn-success btn-md" href="{% url 'manager-category-add' %}">{% trans 'Add' %}</a>
+{% endblock %}
+
+{% block extrajs %}
+  <script>
+    $(document).ready(function () {
+        select2RenderField($('#id_color'), null, null, {}, {dropdownParent: $('#filterForm')});
+    });
+  </script>
 {% endblock %}
 
 {% block content %}

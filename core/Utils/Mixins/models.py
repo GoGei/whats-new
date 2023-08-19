@@ -83,8 +83,12 @@ class SlugifyMixin(models.Model):
         abstract = True
 
     @classmethod
+    def value_to_slug(cls, value):
+        return slugify(value)
+
+    @classmethod
     def is_allowed_to_assign_slug(cls, value, instance=None):
-        slug = slugify(value)
+        slug = cls.value_to_slug(value)
         qs = cls.objects.filter(slug=slug)
         if instance:
             qs = qs.exclude(pk=instance.pk)
@@ -106,7 +110,7 @@ class SlugifyMixin(models.Model):
         if not self.is_allowed_to_assign_slug(value, self):
             raise ValueError('It is not allowed to assign slug')
 
-        slug = slugify(value)
+        slug = self.value_to_slug(value)
         self.slug = slug if len(slug) <= 255 else slug[:255]
         if commit:
             self.save()

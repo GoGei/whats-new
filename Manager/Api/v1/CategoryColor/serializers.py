@@ -9,4 +9,5 @@ class CategoryColorSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'value',
+            'label',
         )

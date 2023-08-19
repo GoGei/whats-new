@@ -1,11 +1,19 @@
 {% extends 'Manager/Category/category_base.html' %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block breadcrumbs %}
   {{ block.super }}
   <li class="breadcrumb-item" aria-current="page">
     <strong>{% trans 'Edit' %} {{ category.name }}</strong>
   </li>
+{% endblock %}
+
+{% block extrajs %}
+  <script>
+    $(document).ready(function () {
+        select2RenderField($('#id_color'));
+    });
+  </script>
 {% endblock %}
 
 {% block content %}

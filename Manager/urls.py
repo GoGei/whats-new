@@ -1,5 +1,5 @@
 from django.conf.urls import url, include
-from Manager.Api.urls import urlpatterns
+from Manager.Api.urls import urlpatterns as api_urls
 
 urlpatterns = [
     url(r'', include('urls')),
@@ -15,5 +15,5 @@ urlpatterns = [
     url(r'^user-feedback/', include('Manager.UserFeedback.urls')),
     url(r'^categories/', include('Manager.Category.urls')),
 
-    url(r'^api/', include((urlpatterns, 'manager-api-v1'), namespace='manager-api-v1')),
+    url(r'^api/', include((api_urls, 'manager-api-v1'), namespace='manager-api-v1')),
 ]
