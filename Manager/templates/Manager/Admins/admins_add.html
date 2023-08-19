@@ -4,12 +4,16 @@
 {% block breadcrumbs %}
   {{ block.super }}
   <li class="breadcrumb-item" aria-current="page">
-    <strong>{% trans 'Add' %}</strong>
+    <a href="{% url 'manager-admins-list' %}">
+      {% trans 'Add' %}
+    </a>
   </li>
 {% endblock %}
 
 {% block action-area %}
-  <a type="button" class="btn btn-success btn-md" href="{% url 'manager-admins-list' %}">{% trans 'Back to list' %}</a>
+  <a type="button" class="btn btn-success btn-md" href="{% url 'manager-admins-list' %}">
+    {% trans 'Back to list' %}
+  </a>
 {% endblock %}
 
 {% block content %}

@@ -4,8 +4,17 @@
 {% block breadcrumbs %}
   {{ block.super }}
   <li class="breadcrumb-item" aria-current="page">
-    <strong>{% trans 'Edit' %} {{ comment.id }}</strong>
+    <a href="{% url 'manager-author-request-view' author_request.id %}">
+      {% trans 'Edit' %}: {{ comment.id }}
+    </a>
   </li>
+{% endblock %}
+
+{% block action-area %}
+  <a type="button" class="btn btn-success btn-md"
+     href="{% url 'manager-author-request-comment-view' comment.id %}">{% trans 'View' %}</a>
+  <a type="button" class="btn btn-success btn-md"
+     href="{% url 'manager-author-request-view' author_request.id %}">{% trans 'Back to list' %}</a>
 {% endblock %}
 
 {% block content %}

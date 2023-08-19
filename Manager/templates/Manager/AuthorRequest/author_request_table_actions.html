@@ -14,9 +14,9 @@
        href="{% url 'manager-author-request-reject' record.id %}" title="{% trans 'Reject' %}">
       <i class="fa fa-thumbs-down"></i>
     </a>
+    <a type="button" class="btn btn-info btn-rounded btn-icon btn-sm"
+       href="{% url 'manager-author-request-comment' record.id %}" title="{% trans 'Comment' %}">
+      <i class="mdi mdi-reply"></i>
+    </a>
   {% endif %}
-  <a type="button" class="btn btn-info btn-rounded btn-icon btn-sm"
-     href="{% url 'manager-author-request-comment' record.id %}" title="{% trans 'Comment' %}">
-    <i class="mdi mdi-reply"></i>
-  </a>
 </div>

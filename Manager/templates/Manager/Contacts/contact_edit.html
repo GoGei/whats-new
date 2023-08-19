@@ -4,7 +4,9 @@
 {% block breadcrumbs %}
   {{ block.super }}
   <li class="breadcrumb-item" aria-current="page">
-    <strong>{% trans 'Edit' %} {{ contact.id }}</strong>
+    <a href="{% url 'manager-contact-view' contact.id %}">
+      {% trans 'Edit' %}: {{ contact.id }}
+    </a>
   </li>
 {% endblock %}
 
