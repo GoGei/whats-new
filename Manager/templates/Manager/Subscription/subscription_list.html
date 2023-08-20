@@ -11,7 +11,18 @@
 {% block extrajs %}
   <script>
       $(document).ready(function () {
-          select2RenderField($('#id_categories'), null, null, {}, {dropdownParent: $('#filterForm')});
+          const $modalForm = $('#filterForm');
+          const processSearch = (params) => {
+              return {
+                  ...defaultProcessSearch(params),
+                  is_staff: false,
+                  is_superuser: false,
+                  is_active: true,
+              };
+          };
+
+          select2RenderField($('#id_categories'), null, null, {}, {dropdownParent: $modalForm});
+          select2RenderField($('#id_user'), processSearch, null, {}, {dropdownParent: $modalForm});
       });
   </script>
 {% endblock %}

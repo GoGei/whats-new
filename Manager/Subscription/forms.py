@@ -1,8 +1,9 @@
 import django_filters
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from core.Subscription.models import Subscription
 from core.Category.models import Category
+from core.Subscription.models import Subscription
+from core.User.models import User
 from core.Utils.filter_fields import SearchFilterField
 
 
@@ -16,6 +17,15 @@ class SubscriptionFilterForm(django_filters.FilterSet):
                    'multiple': 'multiple',
                    'placeholder': _('Select categories'),
                    'data-ajax-url': '/api/v1/categories/'}
+        )
+    )
+    user = django_filters.ModelChoiceFilter(
+        label=_('Users'),
+        queryset=User.objects.all(),
+        widget=forms.Select(
+            attrs={'class': 'form-control select2',
+                   'placeholder': _('Select users'),
+                   'data-ajax-url': '/api/v1/users/'}
         )
     )
 
