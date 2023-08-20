@@ -16,7 +16,7 @@ class UserFeedbackFilterForm(django_filters.FilterSet):
         widget=forms.Select(
             attrs={'class': 'form-control select2',
                    'placeholder': _('Select an admin'),
-                   'data-ajax-url': '/api/v1/admins/'}
+                   'data-ajax-url': '/api/v1/users/'}
         )
     )
 

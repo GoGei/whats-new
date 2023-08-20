@@ -11,7 +11,14 @@
 {% block extrajs %}
   <script>
       $(document).ready(function () {
-          select2RenderField($('#id_admin'), null, null, {}, {dropdownParent: $('#filterForm')});
+          const processSearch = (params) => {
+              return {
+                  ...defaultProcessSearch(params),
+                  is_staff: true,
+              };
+          };
+
+          select2RenderField($('#id_admin'), processSearch, null, {}, {dropdownParent: $('#filterForm')});
       });
   </script>
 {% endblock %}
