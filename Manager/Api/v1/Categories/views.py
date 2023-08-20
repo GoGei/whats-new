@@ -6,7 +6,7 @@ from .serializers import CategorySerializer
 
 
 class CategoryViewSet(AdminViewSet):
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().order_by('position')
     serializer_class = CategorySerializer
 
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)

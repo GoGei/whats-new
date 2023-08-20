@@ -1,0 +1,9 @@
+{% load i18n %}
+
+{% with record.admin as admin %}
+  {% if admin %}
+    <a href="{% url 'manager-admins-view' record.admin.id %}">{{ record.admin.label }}</a>
+  {% else %}
+    {% trans 'No admin' %}
+  {% endif %}
+{% endwith %}
