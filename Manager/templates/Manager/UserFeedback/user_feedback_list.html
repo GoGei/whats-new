@@ -8,6 +8,14 @@
 {% block action-area %}
 {% endblock %}
 
+{% block extrajs %}
+  <script>
+      $(document).ready(function () {
+          select2RenderField($('#id_admin'), null, null, {}, {dropdownParent: $('#filterForm')});
+      });
+  </script>
+{% endblock %}
+
 {% block content %}
   <div class="grid-margin stretch-card">
     <div class="card">

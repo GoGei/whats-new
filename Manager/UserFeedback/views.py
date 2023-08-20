@@ -13,7 +13,7 @@ from .tables import UserFeedbackTable
 
 @manager_required
 def user_feedback_list(request):
-    qs = UserFeedback.objects.all().order_by('created_stamp')
+    qs = UserFeedback.objects.select_related('admin').all().order_by('created_stamp')
     qs = qs.annotate(
         can_be_replied_annotated=models.Case(
             models.When(status=UserFeedback.Status.COMMENTED, then=models.Value(True)),
