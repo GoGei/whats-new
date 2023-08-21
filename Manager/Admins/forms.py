@@ -5,6 +5,7 @@ from django import forms
 from django.db import models
 from django.utils.translation import ugettext as _
 from core.User.models import User
+from core.Utils.fields import PasswordField
 from core.Utils.filter_fields import SearchFilterField, IsActiveFilterField, IsFilledFilterForm
 
 
@@ -95,3 +96,26 @@ class AdminFormAdd(AdminForm):
 
 class AdminFormEdit(AdminForm):
     pass
+
+
+class AdminSetPasswordForm(forms.Form):
+    password = PasswordField()
+    confirm_password = PasswordField()
+
+    def __init__(self, *args, **kwargs):
+        self.admin = kwargs.pop('admin')
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        data = super().clean()
+        password = data.get('password')
+        confirm_password = data.get('confirm_password')
+        if password != confirm_password:
+            self.add_error('password', _('Passwords do not match'))
+        return data
+
+    def save(self, commit=True):
+        self.admin.set_password(self.cleaned_data['password'])
+        if commit:
+            self.admin.save()
+        return self.admin

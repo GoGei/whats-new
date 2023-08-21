@@ -7,7 +7,7 @@ from django.contrib import messages
 
 from core.Utils.Access.decorators import manager_required, superuser_required
 from core.User.models import User
-from .forms import AdminFilterForm, AdminFormAdd, AdminFormEdit
+from .forms import AdminFilterForm, AdminFormAdd, AdminFormEdit, AdminSetPasswordForm
 from .tables import AdminTable
 
 
@@ -50,7 +50,8 @@ def admins_add(request):
     if form_body.is_valid():
         admin = form_body.save()
         messages.success(request, _(f'Admin {admin.email} was successfully created'))
-        return redirect(reverse('manager-admins-list', host='manager'))
+        # return redirect(reverse('manager-admins-list', host='manager'))
+        return redirect(reverse('manager-admins-set-password', args=[admin.id], host='manager'))
 
     form = {
         'body': form_body,
@@ -86,3 +87,27 @@ def admins_edit(request, admin_id):
 
     return render(request, 'Manager/Admins/admins_edit.html', {'form': form,
                                                                'admin': admin})
+
+
+@superuser_required
+def admins_set_password(request, admin_id):
+    admin = get_object_or_404(User.objects.admins(), pk=admin_id)
+    form_body = AdminSetPasswordForm(request.POST or None, admin=admin)
+
+    if '_cancel' in request.POST:
+        return redirect(reverse('manager-admins-view', args=[admin_id], host='manager'))
+
+    if form_body.is_valid():
+        form_body.save()
+        messages.success(request, _(f'Admin {admin.email}\'s password was successfully set'))
+        return redirect(reverse('manager-admins-list', host='manager'))
+
+    form = {
+        'body': form_body,
+        'buttons': {'save': True, 'cancel': True},
+        'title': _('Add admin'),
+        'description': _('Please, fill in the form below to add an admin'),
+    }
+
+    return render(request, 'Manager/Admins/admins_set_password.html', {'form': form,
+                                                                       'admin': admin})
