@@ -16,10 +16,7 @@ class UppercaseValidator:
     def __call__(self, value):
         # def UppercaseValidator(value):
         if not any(char.isupper() for char in value):
-            raise ValidationError(
-                _("%(value)s does not contains uppercase letters"),
-                params={"value": value},
-            )
+            raise ValidationError(_("Value does not contains uppercase letters"))
 
 
 class LowercaseValidator:
@@ -31,10 +28,7 @@ class LowercaseValidator:
     def __call__(self, value):
         # def LowercaseValidator(value):
         if not any(char.islower() for char in value):
-            raise ValidationError(
-                _("%(value)s does not contains lowercase letters"),
-                params={"value": value},
-            )
+            raise ValidationError(_("Value does not contains lowercase letters"))
 
 
 class SpecialValidator:
@@ -47,10 +41,7 @@ class SpecialValidator:
         # def SpecialValidator(value):
         chars = '!@._'
         if not any(char in chars for char in value):
-            raise ValidationError(
-                _("%(value)s does not contains special characters"),
-                params={"value": value},
-            )
+            raise ValidationError(_("Value does not contains special characters"))
 
 
 class DigitsValidator:
@@ -62,7 +53,4 @@ class DigitsValidator:
     def __call__(self, value):
         # def DigitsValidator(value):
         if not any(char.isdigit() for char in value):
-            raise ValidationError(
-                _("%(value)s does not contains digits"),
-                params={"value": value},
-            )
+            raise ValidationError(_("Value does not contains digits"))

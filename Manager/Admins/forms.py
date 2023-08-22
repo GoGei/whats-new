@@ -119,3 +119,37 @@ class AdminSetPasswordForm(forms.Form):
         if commit:
             self.admin.save()
         return self.admin
+
+
+class AdminResetPasswordForm(forms.Form):
+    current_password = PasswordField(with_uppercase=False, with_lowercase=False, with_special=False, with_digits=False)
+    password = PasswordField()
+    confirm_password = PasswordField()
+
+    def __init__(self, *args, **kwargs):
+        self.admin = kwargs.pop('admin')
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        data = super().clean()
+
+        current_password = data.get('current_password')
+        password = data.get('password')
+        confirm_password = data.get('confirm_password')
+
+        if not self.admin.check_password(current_password):
+            self.add_error('current_password', _('Current password is incorrect'))
+
+        if password != confirm_password:
+            self.add_error('password', _('Passwords do not match'))
+
+        if current_password == password:
+            self.add_error('current_password', _('Current password is the same as new password'))
+
+        return data
+
+    def save(self, commit=True):
+        self.admin.set_password(self.cleaned_data['password'])
+        if commit:
+            self.admin.save()
+        return self.admin
