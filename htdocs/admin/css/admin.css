@@ -13,3 +13,7 @@
     font-weight: bold; /* Emulate "strong" font weight */
     color: #333; /* Emulate strong color */
 }
+
+.password-toggle {
+    cursor: pointer;
+}

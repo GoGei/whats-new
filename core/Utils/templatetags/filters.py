@@ -49,3 +49,8 @@ def url_clean_get(request):
         return {}
 
     return _dict
+
+
+@register.filter
+def is_password_input(field):
+    return field.field.widget.__class__.__name__ == "PasswordInput"
