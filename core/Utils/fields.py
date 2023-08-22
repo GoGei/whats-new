@@ -11,8 +11,9 @@ class PhoneField(forms.CharField):
 
 
 class PasswordField(forms.CharField):
-    def __init__(self, with_uppercase=True, with_lowercase=True, with_special=True, with_digits=True, *args, **kwargs):
-        kwargs.setdefault('widget', forms.PasswordInput)
+    def __init__(self, with_uppercase=True, with_lowercase=True, with_special=True, with_digits=True, widget_attrs=None,
+                 *args, **kwargs):
+        kwargs.setdefault('widget', forms.PasswordInput(attrs=widget_attrs or {"data-toggle": "password"}))
         kwargs.setdefault('min_length', 8)
         kwargs.setdefault('max_length', 24)
 

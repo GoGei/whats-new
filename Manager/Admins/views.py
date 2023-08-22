@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth import login
 from django.forms import model_to_dict
 from django_hosts import reverse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -7,7 +8,7 @@ from django.contrib import messages
 
 from core.Utils.Access.decorators import manager_required, superuser_required
 from core.User.models import User
-from .forms import AdminFilterForm, AdminFormAdd, AdminFormEdit, AdminSetPasswordForm
+from .forms import AdminFilterForm, AdminFormAdd, AdminFormEdit, AdminSetPasswordForm, AdminResetPasswordForm
 from .tables import AdminTable
 
 
@@ -63,6 +64,31 @@ def admins_add(request):
     return render(request, 'Manager/Admins/admins_add.html', {'form': form})
 
 
+@manager_required
+def admins_reset_password(request):
+    admin = request.user
+    form_body = AdminResetPasswordForm(request.POST or None, admin=admin)
+
+    if '_cancel' in request.POST:
+        return redirect(reverse('manager-index', host='manager'))
+
+    if form_body.is_valid():
+        form_body.save()
+        messages.success(request, _(f'Your password was successfully set'))
+        login(request, admin)
+        return redirect(reverse('manager-index', host='manager'))
+
+    form = {
+        'body': form_body,
+        'buttons': {'save': True, 'cancel': True},
+        'title': _('Reset password'),
+        'description': _('Please, fill in the form below to set new password'),
+    }
+
+    return render(request, 'Manager/Admins/admins_reset_password.html', {'form': form,
+                                                                         'admin': admin})
+
+
 @superuser_required
 def admins_edit(request, admin_id):
     admin = get_object_or_404(User.objects.admins(), pk=admin_id)
@@ -105,8 +131,8 @@ def admins_set_password(request, admin_id):
     form = {
         'body': form_body,
         'buttons': {'save': True, 'cancel': True},
-        'title': _('Add admin'),
-        'description': _('Please, fill in the form below to add an admin'),
+        'title': _('Set admin password'),
+        'description': _('Please, fill in the form below to set password for an admin'),
     }
 
     return render(request, 'Manager/Admins/admins_set_password.html', {'form': form,
