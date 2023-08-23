@@ -1,8 +1,12 @@
 import django_filters
 from django import forms
+from django.core.exceptions import ValidationError
+from django.core.validators import EmailValidator, URLValidator
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext as _
+
 from core.Contacts.models import Contacts
+from core.Utils.validators import PhoneValidator
 from core.Utils.filter_fields import SearchFilterField, IsActiveFilterField
 
 
@@ -40,6 +44,30 @@ class ContactsForm(forms.ModelForm):
             self.add_error('icon', _(f'Icon is too big. Max size is {filesizeformat(Contacts.MAX_SIZE)}'))
 
         return icon
+
+    def clean(self):
+        data = super().clean()
+
+        contact_type = data.get('contact_type')
+        choices = Contacts.ContactType
+        if contact_type == choices.EMAIL:
+            validator = EmailValidator(message=_('Entered incorrect email'))
+        elif contact_type == choices.LINK:
+            validator = URLValidator(message=_('Entered incorrect URL'))
+        elif contact_type == choices.PHONE:
+            validator = PhoneValidator(message=_('Entered incorrect phone number'))
+        else:
+            validator = None
+            self.add_error('contact_type', _('Incorrect contact type'))
+
+        if validator:
+            text = data.get('text')
+            try:
+                validator(text)
+            except ValidationError:
+                self.add_error('text', validator.message)
+
+        return data
 
 
 class ContactsFormAdd(ContactsForm):

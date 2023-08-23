@@ -8,9 +8,9 @@ class Contacts(CrmMixin):
     MAX_SIZE = 1024 * 1024 * 5  # 5mb
 
     class ContactType(models.TextChoices):
-        email = 'email', _('Email')
-        phone = 'phone', _('Phone')
-        link = 'link', _('Link')
+        EMAIL = 'email', _('Email')
+        PHONE = 'phone', _('Phone')
+        LINK = 'link', _('Link')
 
     text = models.CharField(max_length=255, db_index=True)
     contact_type = models.CharField(choices=ContactType.choices, max_length=10, db_index=True)
