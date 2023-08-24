@@ -50,7 +50,13 @@
             <div class="form-group row">
               <label class="col-sm-2">{% trans 'Icon' %}</label>
               <div class="col-sm-10">
-                <img src="{% static contact.icon.url %}" alt="Icon not loaded">
+                <a href="{{ contact.icon.url }}" target="_blank">{{ contact.icon.url }}</a>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2">{% trans 'Icon' %}</label>
+              <div class="col-sm-10">
+                <img src="{{ contact.icon.url }}" alt="Icon not loaded" width="100">
               </div>
             </div>
           {% endif %}
