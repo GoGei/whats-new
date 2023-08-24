@@ -199,7 +199,8 @@
                 class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> {% trans 'My Profile' %}
               <span class="badge badge-pill badge-danger">1</span></a>
             <a class="dropdown-item"><i
-                class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> {% trans 'Messages' %}</a>
+                class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> {% trans 'Messages' %}
+            </a>
             <a class="dropdown-item"><i
                 class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i>
               {% trans 'Activity' %}</a>
@@ -293,8 +294,15 @@
         </li>
         <li class="nav-item {% block category-sidebar-menu %}{% endblock %}">
           <a class="nav-link" href="{% url 'manager-category-list' %}">
-            <i class="menu-icon mdi mdi mdi-format-list-bulleted"></i>
+            <i class="menu-icon mdi mdi-format-list-bulleted"></i>
             <span class="menu-title">{% trans 'Categories' %}</span>
+          </a>
+        </li>
+
+        <li class="nav-item {% block post-sidebar-menu %}{% endblock %}">
+          <a class="nav-link" href="{% url 'manager-post-list' %}">
+            <i class="menu-icon mdi mdi-newspaper"></i>
+            <span class="menu-title">{% trans 'Posts' %}</span>
           </a>
         </li>
       </ul>

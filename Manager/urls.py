@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^contacts/', include('Manager.Contacts.urls')),
     url(r'^user-feedback/', include('Manager.UserFeedback.urls')),
     url(r'^categories/', include('Manager.Category.urls')),
+    url(r'^posts/', include('Manager.Post.urls')),
 
     url(r'^api/', include((api_urls, 'manager-api-v1'), namespace='manager-api-v1')),
 ]
