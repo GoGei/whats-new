@@ -1,0 +1,100 @@
+{% extends 'Manager/Post/post_base.html' %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item" aria-current="page">
+    <a href="{% url 'manager-post-view' post.id %}">
+      {% trans 'View' %}: {{ post.title }}
+    </a>
+  </li>
+{% endblock %}
+
+{% block action-area %}
+  {% if post.is_active %}
+    <a type="button" class="btn btn-warning btn-md"
+       href="{% url "manager-post-archive" post.id %}">
+      {% trans 'Archive' %}
+    </a>
+  {% else %}
+    <a type="button" class="btn btn-info btn-md"
+       href="{% url "manager-post-restore" post.id %}">
+      {% trans 'Restore' %}
+    </a>
+  {% endif %}
+
+  <a type="button" class="btn btn-primary btn-md"
+     href="{% url 'manager-post-edit' post.id %}">{% trans 'Edit' %}</a>
+  <a type="button" class="btn btn-success btn-md"
+     href="{% url 'manager-post-list' %}">{% trans 'Back to list' %}</a>
+{% endblock %}
+
+{% block content %}
+  <div class="grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'ID' %}</label>
+            <div class="col-sm-10">
+              {{ post.id|default:'' }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Color' %}</label>
+            <div class="col-sm-10">
+              {% with post.color as color %}
+                {{ color.name|default:'' }} - {{ color.value|default:'' }} ({% trans 'Color' %}:<span
+                  style="color: {{ color.value }}">{% trans 'example' %}</span>)
+              {% endwith %}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Category' %}</label>
+            <div class="col-sm-10">
+              <a href="{% url 'manager-category-view' post.category.id %}">{{ post.category.name }}</a>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Author' %}</label>
+            <div class="col-sm-10">
+              <a href="{% url 'manager-admins-view' post.author.id %}">{{ post.author.label }}</a>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Slug' %}</label>
+            <div class="col-sm-10">
+              {{ post.slug|default:'' }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Is active' %}</label>
+            <div class="col-sm-10">
+              <input type="checkbox" class="form-check-input"
+                     {% if post.is_active %}checked="checked"{% endif %} onclick="return false;">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Name' %}</label>
+            <div class="col-sm-10">
+              {{ post.title|default:''|safe|escape }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Description' %}</label>
+            <div class="col-sm-10">
+              {{ post.description|default:''|safe|escape }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Text' %}</label>
+            <div class="col-sm-10">
+              {{ post.text|default:''|safe|escape }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

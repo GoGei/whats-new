@@ -1,0 +1,36 @@
+{% extends 'Manager/Post/post_base.html' %}
+{% load i18n static %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+{% endblock %}
+
+{% block action-area %}
+  <a type="button" class="btn btn-success btn-md" href="{% url 'manager-post-add' %}">{% trans 'Add' %}</a>
+{% endblock %}
+
+{% block extrajs %}
+  <script>
+      $(document).ready(function () {
+          let $filterForm = $('#filterForm');
+          select2RenderField($('#id_color'), null, null, {}, {dropdownParent: $filterForm});
+          select2RenderField($('#id_category'), null, null, {}, {dropdownParent: $filterForm});
+      });
+  </script>
+{% endblock %}
+
+{% block content %}
+  <div class="grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-description">
+          <div class="row">
+            <div class="col">
+              {% include 'smartadmin/tables/table.html' with table=table %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

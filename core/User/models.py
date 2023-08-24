@@ -44,6 +44,10 @@ class UserManager(BaseUserManager):
     def active(self):
         return self.filter(is_active=True)
 
+    def authors(self):
+        q = Q(is_author=True) | Q(is_superuser=True) | Q(is_staff=True)
+        return self.filter(q)
+
 
 class User(CrmMixin, AbstractBaseUser):
     first_name = models.CharField(max_length=50, null=True)
