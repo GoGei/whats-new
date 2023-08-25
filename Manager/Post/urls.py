@@ -10,4 +10,7 @@ urlpatterns = [
     path(r'<int:post_id>/edit/', views.post_edit, name='manager-post-edit'),
     path(r'<int:post_id>/archive/', views.post_archive, name='manager-post-archive'),
     path(r'<int:post_id>/restore/', views.post_restore, name='manager-post-restore'),
+
+    path(r'<int:post_id>/set-by-creator/', views.post_set_by_creator, name='manager-post-set-by-creator'),
+    path(r'<int:post_id>/unset-by-creator/', views.post_unset_by_creator, name='manager-post-unset-by-creator'),
 ]

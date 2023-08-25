@@ -20,4 +20,15 @@
       <i class="mdi mdi-undo"></i>
     </a>
   {% endif %}
+  {% if record.by_the_creator %}
+    <a type="button" class="btn btn-warning btn-rounded btn-icon btn-sm" title="{% trans 'Unset "By creator"' %}"
+       href="{% url "manager-post-unset-by-creator" record.id %}">
+      <i class="mdi mdi-star-off"></i>
+    </a>
+  {% else %}
+    <a type="button" class="btn btn-info btn-rounded btn-icon btn-sm" title="{% trans 'Set "By creator"' %}"
+       href="{% url "manager-post-set-by-creator" record.id %}">
+      <i class="mdi mdi-star"></i>
+    </a>
+  {% endif %}
 </div>

@@ -103,3 +103,19 @@ def post_restore(request, post_id):
     post.restore(request.user)
     messages.success(request, _(f'Post {post.title} was successfully restored'))
     return redirect(reverse('manager-post-list', host='manager'))
+
+
+@manager_required
+def post_set_by_creator(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    post.set_by_creator(request.user)
+    messages.success(request, _(f'Post {post.title} was successfully set "By creator" flag'))
+    return redirect(reverse('manager-post-list', host='manager'))
+
+
+@manager_required
+def post_unset_by_creator(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    post.unset_by_creator(request.user)
+    messages.success(request, _(f'Post {post.title} was successfully unset "By creator" flag'))
+    return redirect(reverse('manager-post-list', host='manager'))
