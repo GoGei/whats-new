@@ -17,8 +17,22 @@ class Post(CrmMixin, SlugifyMixin, TranslateMixin):
     author = models.ForeignKey('User.User', on_delete=models.PROTECT)
     color = models.ForeignKey('Colors.PostColor', on_delete=models.PROTECT)
 
+    by_the_creator = models.BooleanField(default=False, verbose_name='Flag that the post was created by the author')
+
     class Meta:
         db_table = 'post'
+
+    def set_by_creator(self, admin=None):
+        self.by_the_creator = True
+        self.save()
+        self.modify(admin)
+        return self
+
+    def unset_by_creator(self, admin=None):
+        self.by_the_creator = False
+        self.save()
+        self.modify(admin)
+        return self
 
     def __str__(self):
         return self.title
