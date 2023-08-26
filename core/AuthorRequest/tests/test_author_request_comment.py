@@ -40,3 +40,7 @@ class AuthorRequestCommentTests(TestCase):
             expected = '1324567...'
             self.assertEqual(expected, str(obj))
             self.assertEqual(expected, obj.label)
+
+    def test_is_author(self):
+        obj = AuthorRequestCommentFactory.create()
+        self.assertTrue(obj.is_author(obj.user))

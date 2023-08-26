@@ -21,3 +21,13 @@ class PostTests(TestCase):
         obj = PostFactory.create()
         self.assertTrue(obj.title in str(obj))
         self.assertTrue(obj.title in obj.label)
+
+    def test_by_creator(self):
+        obj = PostFactory.create()
+        self.assertIs(obj.by_the_creator, False)
+
+        obj.set_by_creator()
+        self.assertIs(obj.by_the_creator, True)
+
+        obj.unset_by_creator()
+        self.assertIs(obj.by_the_creator, False)

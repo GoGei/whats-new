@@ -3,7 +3,7 @@ import uuid
 from django.test import TestCase
 
 from ..models import User
-from ..factories import UserFactory, StaffFactory, SuperuserFactory
+from ..factories import UserFactory, StaffFactory, SuperuserFactory, AuthorFactory
 
 
 class UserTests(TestCase):
@@ -55,21 +55,31 @@ class UserTests(TestCase):
         user = UserFactory.create()
         staff = StaffFactory.create(is_active=False)
         superuser = SuperuserFactory.create()
+        author = AuthorFactory.create()
 
         admins = User.objects.admins()
         self.assertFalse(user in admins)
         self.assertTrue(staff in admins)
         self.assertTrue(superuser in admins)
+        self.assertFalse(author in admins)
 
         users = User.objects.users()
         self.assertTrue(user in users)
         self.assertFalse(staff in users)
         self.assertFalse(superuser in users)
+        self.assertTrue(author in users)
 
         active = User.objects.active()
         self.assertTrue(user in active)
         self.assertFalse(staff in active)
         self.assertTrue(superuser in active)
+        self.assertTrue(author in active)
+
+        authors = User.objects.authors()
+        self.assertFalse(user in authors)
+        self.assertFalse(staff in authors)
+        self.assertTrue(superuser in authors)
+        self.assertTrue(author in authors)
 
     def test_create_superuser(self):
         email = 'email@example.com'

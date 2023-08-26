@@ -24,6 +24,8 @@ class AuthorRequest(CrmMixin):
     working_experience = models.CharField(max_length=20, choices=WorkingExperienceChoices.choices)
     status = models.CharField(max_length=20, choices=StatusChoices.choices, default=StatusChoices.NEW, db_index=True)
 
+    user = models.OneToOneField('User.User', null=True, on_delete=models.PROTECT)
+
     class Meta:
         db_table = 'author_request'
 
@@ -39,12 +41,47 @@ class AuthorRequest(CrmMixin):
         statuses = self.StatusChoices
         return self.status in (statuses.NEW, statuses.IN_PROGRESS)
 
-    def approve(self, modified_by):
+    def create_user(self):
+        from core.User.models import User
+
+        if self.status != self.StatusChoices.APPROVED:
+            raise ValueError(_('User cannot be created from "Not approved" author request'))
+        if self.user:
+            raise ValueError(_('User already exists'))
+
+        kwargs = {
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.email,
+            'phone': self.phone,
+
+            'is_active': True,
+            'is_staff': False,
+            'is_superuser': False,
+            'is_author': True,
+        }
+
+        user = User(**kwargs)
+        user.save()
+        self.user = user
+        self.save()
+
+        return user
+
+    def approve(self, modified_by=None):
+        if not self.is_allowed_to_interact:
+            raise ValueError(_('It is not allowed to approved author request'))
+
         self.status = self.StatusChoices.APPROVED
         self.modify(modified_by)
+
+        self.create_user()
         return self
 
-    def reject(self, modified_by):
+    def reject(self, modified_by=None):
+        if not self.is_allowed_to_interact:
+            raise ValueError(_('It is not allowed to rejected author request'))
+
         self.status = self.StatusChoices.REJECTED
         self.archive(modified_by)
         return self

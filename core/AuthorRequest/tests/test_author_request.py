@@ -28,13 +28,31 @@ class AuthorRequestTests(TestCase):
         self.assertTrue(obj.last_name in obj.label)
 
     def test_approve(self):
-        obj = AuthorRequestFactory.create()
+        obj = AuthorRequestFactory.create(status=AuthorRequest.StatusChoices.NEW)
+        self.assertIsNone(obj.user)
         obj.approve()
         self.assertTrue(obj.status == AuthorRequest.StatusChoices.APPROVED)
-        self.assertTrue(obj.is_active)
+        self.assertTrue(obj.is_active())
+        self.assertTrue(obj.user)
 
-    def test_cancel(self):
-        obj = AuthorRequestFactory.create()
-        obj.cancel()
-        self.assertTrue(obj.status == AuthorRequest.StatusChoices.CANCELED)
-        self.assertFalse(obj.is_active)
+        self.assertRaises(ValueError, obj.approve)
+
+    def test_reject(self):
+        obj = AuthorRequestFactory.create(status=AuthorRequest.StatusChoices.NEW)
+        obj.reject()
+        self.assertTrue(obj.status == AuthorRequest.StatusChoices.REJECTED)
+        self.assertFalse(obj.is_active())
+
+        self.assertRaises(ValueError, obj.reject)
+
+    def test_create_user(self):
+        obj = AuthorRequestFactory.create(status=AuthorRequest.StatusChoices.IN_PROGRESS)
+        self.assertIsNone(obj.user)
+        self.assertRaises(ValueError, obj.create_user)
+
+        obj.status = AuthorRequest.StatusChoices.APPROVED
+        obj.save()
+        obj.create_user()
+        self.assertIsNotNone(obj.user)
+
+        self.assertRaises(ValueError, obj.create_user)
