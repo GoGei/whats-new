@@ -23,13 +23,11 @@ class StaffFactory(UserFactory):
     is_staff = True
     is_superuser = False
 
-    class Meta:
-        model = User
-
 
 class SuperuserFactory(UserFactory):
     is_staff = True
     is_superuser = True
 
-    class Meta:
-        model = User
+
+class AuthorFactory(UserFactory):
+    is_author = True

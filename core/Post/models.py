@@ -11,7 +11,7 @@ class Post(CrmMixin, SlugifyMixin, TranslateMixin):
 
     title_data = models.JSONField(default=dict, db_index=True)
     description_data = models.JSONField(default=dict)
-    text_data = models.JSONField(default=dict, db_index=True)
+    text_data = models.JSONField(default=dict)
 
     category = models.ForeignKey('Category.Category', on_delete=models.PROTECT)
     author = models.ForeignKey('User.User', on_delete=models.PROTECT)
