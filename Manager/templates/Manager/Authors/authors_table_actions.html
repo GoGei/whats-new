@@ -1,0 +1,12 @@
+{% load i18n %}
+
+<div>
+  <a type="button" class="btn btn-info btn-rounded btn-icon btn-sm" title="{% trans 'View' %}"
+     href="{% url "manager-authors-view" record.id %}">
+    <i class="mdi mdi-eye"></i>
+  </a>
+  <a type="button" class="btn btn-warning btn-rounded btn-icon btn-sm" title="{% trans 'Remove author' %}"
+     href="{% url "manager-authors-remove-author" record.id %}">
+    <i class="mdi mdi-minus"></i>
+  </a>
+</div>

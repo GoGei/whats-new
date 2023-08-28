@@ -15,7 +15,7 @@
     <a type="button" class="btn btn-warning btn-md"
        href="{% url 'manager-author-request-reject' author_request.id %}">{% trans 'Reject' %}</a>
     <a type="button" class="btn btn-info btn-md"
-     href="{% url 'manager-author-request-comment' author_request.id %}">{% trans 'Comment' %}</a>
+       href="{% url 'manager-author-request-comment' author_request.id %}">{% trans 'Comment' %}</a>
   {% endif %}
   <a type="button" class="btn btn-success btn-md"
      href="{% url 'manager-author-request-list' %}">{% trans 'Back to list' %}</a>
@@ -32,6 +32,16 @@
               {{ author_request.id|default:'' }}
             </div>
           </div>
+          {% if author_request.user %}
+            <div class="form-group row">
+              <label class="col-sm-2">{% trans 'User' %}</label>
+              <div class="col-sm-10">
+                <a href="{% url 'manager-users-view' author_request.user.id %}">
+                  {{ author_request.user.label|default:'' }}
+                </a>
+              </div>
+            </div>
+          {% endif %}
           <div class="form-group row">
             <label class="col-sm-2">{% trans 'Email' %}</label>
             <div class="col-sm-10">

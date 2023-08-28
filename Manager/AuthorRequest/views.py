@@ -14,7 +14,7 @@ from .AuthorRequestComments.tables import AuthorRequestCommentTable
 
 @manager_required
 def author_request_list(request):
-    qs = AuthorRequest.objects.all().order_by('email')
+    qs = AuthorRequest.objects.all().order_by('-created_stamp')
 
     filter_form = AuthorRequestFilterForm(request.GET, queryset=qs, request=request)
     qs = filter_form.qs
@@ -37,7 +37,7 @@ def author_request_list(request):
 
 @manager_required
 def author_request_view(request, author_request_id):
-    author_request = get_object_or_404(AuthorRequest, pk=author_request_id)
+    author_request = get_object_or_404(AuthorRequest.objects.select_related('user'), pk=author_request_id)
 
     qs = AuthorRequestComment.objects.select_related('author_request', 'user')
     qs = qs.filter(author_request=author_request).order_by('created_stamp')
