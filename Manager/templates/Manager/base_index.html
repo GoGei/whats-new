@@ -248,6 +248,12 @@
             <span class="menu-title">{% trans 'Admins' %}</span>
           </a>
         </li>
+        <li class="nav-item {% block author-sidebar-menu %}{% endblock %}">
+          <a class="nav-link" href="{% url 'manager-authors-list' %}">
+            <i class="menu-icon mdi mdi mdi-pencil-box"></i>
+            <span class="menu-title">{% trans 'Authors' %}</span>
+          </a>
+        </li>
         <li class="nav-item {% block author-request-sidebar-menu %}{% endblock %}">
           <a class="nav-link" href="{% url 'manager-author-request-list' %}">
             <i class="menu-icon mdi mdi mdi-account-multiple-plus"></i>
@@ -299,7 +305,6 @@
             <span class="menu-title">{% trans 'Categories' %}</span>
           </a>
         </li>
-
         <li class="nav-item {% block post-sidebar-menu %}{% endblock %}">
           <a class="nav-link" href="{% url 'manager-post-list' %}">
             <i class="menu-icon mdi mdi-newspaper"></i>

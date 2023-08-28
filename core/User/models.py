@@ -45,7 +45,7 @@ class UserManager(BaseUserManager):
         return self.filter(is_active=True)
 
     def authors(self):
-        q = Q(is_author=True) | Q(is_superuser=True)
+        q = Q(is_author=True)
         return self.filter(q)
 
 

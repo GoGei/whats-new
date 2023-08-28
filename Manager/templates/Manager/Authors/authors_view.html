@@ -1,0 +1,63 @@
+{% extends 'Manager/Authors/authors_base.html' %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="breadcrumb-item" aria-current="page">
+    <a href="{% url 'manager-authors-view' author.id %}">
+      {% trans 'View' %}: {{ author.email }}
+    </a>
+  </li>
+{% endblock %}
+
+{% block action-area %}
+  <a type="button" class="btn btn-success btn-md" href="{% url 'manager-authors-list' %}">{% trans 'Back to list' %}</a>
+{% endblock %}
+
+{% block content %}
+  <div class="grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'ID' %}</label>
+            <div class="col-sm-10">
+              {{ author.id|default:'' }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Email' %}</label>
+            <div class="col-sm-10">
+              <a href="mailto:{{ author.email }}">{{ author.email|default:'' }}</a>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Phone' %}</label>
+            <div class="col-sm-10">
+              <a href="tel:{{ author.phone }}">{{ author.phone|default:'' }}</a>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'First name' %}</label>
+            <div class="col-sm-10">
+              {{ author.first_name|default:'' }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Last name' %}</label>
+            <div class="col-sm-10">
+              {{ author.last_name|default:'' }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2">{% trans 'Is active' %}</label>
+            <div class="col-sm-10">
+              <input type="checkbox" class="form-check-input"
+                     {% if author.is_active %}checked="checked"{% endif %} onclick="return false;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
