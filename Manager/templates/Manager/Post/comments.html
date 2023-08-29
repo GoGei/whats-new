@@ -1,0 +1,19 @@
+{% load i18n mptt_tags %}
+
+<ul class="comment-list">
+  {% recursetree comments %}
+    <li class="comment">
+      <div>
+        {{ node.label }}
+        {% if not node.is_leaf_node %}
+          <button class="toggle-button">{% trans 'Toggle Replies' %}</button>
+        {% endif %}
+      </div>
+      {% if not node.is_leaf_node %}
+        <ul class="children hidden">
+          {% include "Manager/Post/comments.html" with comments=node.children.all %}
+        </ul>
+      {% endif %}
+    </li>
+  {% endrecursetree %}
+</ul>
