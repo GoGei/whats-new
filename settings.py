@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'drf_yasg2',
     'ckeditor',
     'ckeditor_uploader',
+    'mptt',
     'core.Utils',
     'core.User',
     'core.AuthorRequest',

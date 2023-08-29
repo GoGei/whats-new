@@ -39,7 +39,9 @@ def post_list(request):
 @manager_required
 def post_view(request, post_id):
     post = get_object_or_404(Queryset, pk=post_id)
-    return render(request, 'Manager/Post/post_view.html', {'post': post})
+    comments = post.get_comments()
+    return render(request, 'Manager/Post/post_view.html', {'post': post,
+                                                           'comments': comments})
 
 
 @manager_required

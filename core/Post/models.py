@@ -41,6 +41,10 @@ class Post(CrmMixin, SlugifyMixin, TranslateMixin):
     def label(self):
         return str(self)
 
+    def get_comments(self):
+        qs = PostComment.objects.select_related('post').filter(post=self)
+        return qs
+
 
 class PostComment(CrmMixin, MPTTModel):
     author = models.ForeignKey('User.User', on_delete=models.PROTECT)
