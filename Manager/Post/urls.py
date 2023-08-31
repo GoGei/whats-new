@@ -1,5 +1,5 @@
 from django.urls import path
-from django.conf.urls import url
+from django.conf.urls import url, include
 
 from . import views
 
@@ -13,4 +13,6 @@ urlpatterns = [
 
     path(r'<int:post_id>/set-by-creator/', views.post_set_by_creator, name='manager-post-set-by-creator'),
     path(r'<int:post_id>/unset-by-creator/', views.post_unset_by_creator, name='manager-post-unset-by-creator'),
+
+    url(r'comments/', include('Manager.Post.PostComments.urls'), name='manager-post-comment'),
 ]

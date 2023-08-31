@@ -1,19 +1,44 @@
 {% load i18n mptt_tags %}
 
-<ul class="comment-list">
-  {% recursetree comments %}
+
+{% recursetree comments %}
+  <ul class="{% if node.is_root_node %}comment-list{% else %}sub-comment-list{% endif %}">
     <li class="comment">
       <div>
-        {{ node.label }}
         {% if not node.is_leaf_node %}
-          <button class="toggle-button">{% trans 'Toggle Replies' %}</button>
+          <a class="toggle-button" type="button" {% if node.is_root_node %}id="toggle-id-{{ node.id }}"{% endif %}>
+            {{ node.label }}
+          </a>
+          {% if not node.is_leaf_node %}...{% endif %}
+        {% else %}
+          {{ node.label }}
+        {% endif %}
+        {% if node.is_active %}
+          <a type="button" class="btn btn-warning btn-rounded btn-icon btn-sm remember-scroll" title="{% trans 'Archive' %}"
+             href="{% url "manager-post-comment-archive" node.id %}">
+            <i class="mdi mdi-trash-can"></i>
+          </a>
+        {% else %}
+          <a type="button" class="btn btn-info btn-rounded btn-icon btn-sm remember-scroll" title="{% trans 'Restore' %}"
+             href="{% url "manager-post-comment-restore" node.id %}">
+            <i class="mdi mdi-undo"></i>
+          </a>
+        {% endif %}
+        {% if node.is_removed %}
+          <a type="button" class="btn btn-primary btn-rounded btn-icon btn-sm remember-scroll" title="{% trans 'Undo remove' %}"
+             href="{% url "manager-post-comment-undo-remove" node.id %}">
+            <i class="mdi mdi-undo"></i>
+          </a>
+        {% else %}
+          <a type="button" class="btn btn-danger btn-rounded btn-icon btn-sm remember-scroll" title="{% trans 'Remove' %}"
+             href="{% url "manager-post-comment-remove" node.id %}">
+            <i class="mdi mdi-trash-can"></i>
+          </a>
         {% endif %}
       </div>
       {% if not node.is_leaf_node %}
-        <ul class="children hidden">
-          {% include "Manager/Post/comments.html" with comments=node.children.all %}
-        </ul>
+        {% include "Manager/Post/comments.html" with comments=node.children.all %}
       {% endif %}
     </li>
-  {% endrecursetree %}
-</ul>
+  </ul>
+{% endrecursetree %}
