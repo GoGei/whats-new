@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.utils import timezone, translation
 from django.utils.text import slugify

@@ -115,8 +115,34 @@
 {% block extrajs %}
   <script>
       $(document).ready(function () {
+          const scrollPositionKey = 'scrollPosition';
+
+          const storedScrollPosition = localStorage.getItem(scrollPositionKey);
+          if (storedScrollPosition) {
+              $(window).scrollTop(storedScrollPosition);
+              localStorage.removeItem(scrollPositionKey);
+          }
+
+          $('.remember-scroll').click(function () {
+              localStorage.setItem(scrollPositionKey, $(window).scrollTop());
+          });
+
           $('.toggle-button').click(function () {
-              $(this).siblings('ul.children').toggleClass('hidden');
+              const $current = $(this);
+              const $child = $current.closest('.comment').find('.sub-comment-list')
+              $child.toggle();
+
+              localStorage.setItem($current.attr('id'), $child.is(':visible'));
+          });
+
+          $('.comment-list').each(function () {
+              const $toggleButton = $(this).find('.toggle-button');
+              const toggleId = $toggleButton.attr('id');
+              const isVisible = localStorage.getItem(toggleId) === 'true';
+              if (isVisible) {
+                  const $child = $toggleButton.closest('.comment').find('.sub-comment-list')
+                  $child.show();
+              }
           });
       });
   </script>
@@ -125,29 +151,19 @@
 
 {% block extracss %}
   <style>
-      .comment-list {
-          list-style: none;
-          padding-left: 0;
-      }
-
       .comment {
           border: 1px solid #ccc;
           margin-bottom: 10px;
           padding: 10px;
       }
 
-      .comment .children {
-          margin-left: 20px;
+      .sub-comment-list {
+          margin-top: 10px;
+          display: none;
       }
 
-      .toggle-button {
-          background: none;
-          border: none;
-          cursor: pointer;
-          font-size: 12px;
-          color: #007bff;
-          padding: 0;
-          text-decoration: underline;
+      ul {
+          list-style: none;
       }
 
   </style>

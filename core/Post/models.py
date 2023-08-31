@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 from mptt.fields import TreeForeignKey
 from mptt.managers import TreeManager
 from mptt.models import MPTTModel
@@ -52,14 +54,34 @@ class PostComment(CrmMixin, MPTTModel):
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     content = models.CharField(max_length=512)
 
+    removed_stamp = models.DateTimeField(db_index=True, null=True)
+
     tree = TreeManager()
 
     class Meta:
         db_table = 'post_comment'
 
     def __str__(self):
-        return self.content
+        if not self.is_removed:
+            return self.content
+        return f'[{_("Removed")}]'
 
     @property
     def label(self):
         return str(self)
+
+    @property
+    def is_removed(self):
+        return bool(self.removed_stamp)
+
+    def remove(self, user=None):
+        self.removed_stamp = timezone.now()
+        self.save()
+        self.modify(user)
+        return self
+
+    def undo_remove(self, user):
+        self.removed_stamp = None
+        self.save()
+        self.modify(user)
+        return self
