@@ -87,7 +87,7 @@ class AuthorRequest(UUIDMixin, CrmMixin):
         return self
 
 
-class AuthorRequestComment(CrmMixin):
+class AuthorRequestComment(UUIDMixin, CrmMixin):
     COMMENT_STR_LIMIT = 50
     END_COMMENT = '...'
 
