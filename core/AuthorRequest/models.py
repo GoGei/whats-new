@@ -2,10 +2,10 @@ from html import unescape
 from django.db import models
 from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
-from core.Utils.Mixins.models import CrmMixin
+from core.Utils.Mixins.models import CrmMixin, UUIDMixin
 
 
-class AuthorRequest(CrmMixin):
+class AuthorRequest(UUIDMixin, CrmMixin):
     class WorkingExperienceChoices(models.TextChoices):
         ZERO_TWO = '0_2', _('0-2')
         TWO_FOUR = '2_4', _('2-4')
@@ -24,7 +24,7 @@ class AuthorRequest(CrmMixin):
     working_experience = models.CharField(max_length=20, choices=WorkingExperienceChoices.choices)
     status = models.CharField(max_length=20, choices=StatusChoices.choices, default=StatusChoices.NEW, db_index=True)
 
-    user = models.OneToOneField('User.User', null=True, on_delete=models.PROTECT)
+    user = models.ForeignKey('User.User', null=True, on_delete=models.PROTECT)
 
     class Meta:
         db_table = 'author_request'

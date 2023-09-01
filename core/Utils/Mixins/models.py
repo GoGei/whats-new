@@ -145,3 +145,10 @@ class TranslateMixin(models.Model):
                 field_data.update({field: data})
             rc.append(field_data)
         return rc
+
+
+class UUIDMixin(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    class Meta:
+        abstract = True
