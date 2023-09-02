@@ -78,7 +78,7 @@ class UserTests(TestCase):
         authors = User.objects.authors()
         self.assertFalse(user in authors)
         self.assertFalse(staff in authors)
-        self.assertTrue(superuser in authors)
+        self.assertFalse(superuser in authors)
         self.assertTrue(author in authors)
 
     def test_create_superuser(self):

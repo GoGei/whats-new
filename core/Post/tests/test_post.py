@@ -1,6 +1,6 @@
 from django.test import TestCase
 from ..models import Post
-from ..factories import PostFactory
+from ..factories import PostFactory, PostCommentFactory
 
 
 class PostTests(TestCase):
@@ -31,3 +31,14 @@ class PostTests(TestCase):
 
         obj.unset_by_creator()
         self.assertIs(obj.by_the_creator, False)
+
+    def test_get_comments(self):
+        obj = PostFactory.create()
+        comment1 = PostCommentFactory.create(post=obj)
+        comment2 = PostCommentFactory.create(post=obj)
+        comment2.archive()
+        comment3 = PostCommentFactory.create()
+        qs = obj.get_comments()
+        self.assertTrue(comment1 in qs)
+        self.assertTrue(comment2 in qs)
+        self.assertFalse(comment3 in qs)

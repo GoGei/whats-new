@@ -1,8 +1,8 @@
 from django.db import models
-from core.Utils.Mixins.models import CrmMixin
+from core.Utils.Mixins.models import CrmMixin, UUIDMixin
 
 
-class Subscription(CrmMixin):
+class Subscription(UUIDMixin, CrmMixin):
     email = models.EmailField(db_index=True)
     user = models.ForeignKey('User.User', on_delete=models.PROTECT, null=True)
     categories = models.ManyToManyField('Category.Category')

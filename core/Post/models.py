@@ -4,10 +4,10 @@ from django.utils.translation import ugettext_lazy as _
 from mptt.fields import TreeForeignKey
 from mptt.managers import TreeManager
 from mptt.models import MPTTModel
-from core.Utils.Mixins.models import CrmMixin, SlugifyMixin, TranslateMixin
+from core.Utils.Mixins.models import CrmMixin, SlugifyMixin, TranslateMixin, UUIDMixin
 
 
-class Post(CrmMixin, SlugifyMixin, TranslateMixin):
+class Post(UUIDMixin, CrmMixin, SlugifyMixin, TranslateMixin):
     TRANSLATED_FIELDS = ['title', 'description', 'text']
     SLUGIFY_FIELD = 'title'
 
@@ -80,7 +80,7 @@ class PostComment(CrmMixin, MPTTModel):
         self.modify(user)
         return self
 
-    def undo_remove(self, user):
+    def undo_remove(self, user=None):
         self.removed_stamp = None
         self.save()
         self.modify(user)
