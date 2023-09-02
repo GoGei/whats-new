@@ -54,7 +54,7 @@ class UserFeedbackReply(CrmMixin):
         db_table = 'user_feedback_reply'
 
     def __str__(self):
-        return f'Reply to {self.feedback}'
+        return f'Reply to {self.feedback.label}'
 
     @property
     def label(self):

@@ -21,3 +21,11 @@ class PostCommentTests(TestCase):
         obj = PostCommentFactory.create()
         self.assertTrue(obj.content in str(obj))
         self.assertTrue(obj.content in obj.label)
+
+    def test_remove(self):
+        obj = PostCommentFactory.create()
+        obj.remove()
+        self.assertTrue(obj.is_removed)
+        self.assertIn('Removed', str(obj))
+        obj.undo_remove()
+        self.assertFalse(obj.is_removed)
