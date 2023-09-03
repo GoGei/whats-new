@@ -9,7 +9,6 @@
           <a class="toggle-button" type="button" {% if node.is_root_node %}id="toggle-id-{{ node.id }}"{% endif %}>
             {{ node.label }}
           </a>
-          {% if not node.is_leaf_node %}...{% endif %}
         {% else %}
           {{ node.label }}
         {% endif %}
