@@ -15,5 +15,5 @@ class Migration(migrations.Migration):
             name='id',
             field=models.CharField(auto_created=True, max_length=36, primary_key=True, serialize=False),
         ),
-        migrations.RunSQL("delete * from post_comment"),
+        migrations.RunSQL("delete from post_comment"),
     ]

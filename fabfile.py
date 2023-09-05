@@ -2,21 +2,21 @@ import os
 import random
 from datetime import datetime
 
-from fabric.api import local, lcd, cd
-from fabric.contrib import django
-from fabric.decorators import task
+from fabric import task
+from config import settings as dj_settings
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__)) + '/'
 
-django.project('blog')
-django.settings_module('config.settings')
-from config import settings as dj_settings
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+VIRTUAL_ENV = os.environ.get('VIRTUAL_ENV') or os.path.join(PROJECT_ROOT, 'env')
+VIRTUAL_ENV_ACTIVATE = '. %s' % os.path.join(VIRTUAL_ENV, 'bin/activate')
 
 
-def _launch_django(project_path):
+@task
+def runserver(c):
     port = dj_settings.HOST_PORT
     if not port:
-        summ = sum([ord(char) for char in project_path.split('/')[-2]])
+        summ = sum([ord(char) for char in PROJECT_ROOT.split('/')[-1]])
         random.seed(summ)
         port = random.randrange(1024, 5000)
 
@@ -26,57 +26,59 @@ def _launch_django(project_path):
             if f.read().find(dj_settings.SITE_URL) != -1:
                 server_address = dj_settings.SITE_URL
 
-    with lcd(project_path):
-        local(f'./manage.py runserver {server_address}:{port}', capture=False)
+    with c.prefix(VIRTUAL_ENV_ACTIVATE):
+        with c.cd(PROJECT_ROOT):
+            c.run(f'./manage.py runserver {server_address}:{port}', pty=True)
 
 
 @task
-def runserver():
-    _launch_django(PROJECT_ROOT)
-
-
-@task
-def dump_db(user='postgres'):
+def dumpdb(c, user='postgres'):
     db_name = dj_settings.DATABASES['default']['NAME']
 
     date = datetime.now().strftime("%Y-%m-%d_%H%M")
     dump_name = f'dumps/{db_name}_{date}.sql'
 
-    with cd(PROJECT_ROOT):
-        local('mkdir -p dumps')
-        local(f'sudo -u {user} pg_dump {db_name} > {dump_name} | bzip2 -9 > {dump_name}.bz2')
+    with c.prefix(VIRTUAL_ENV_ACTIVATE):
+        with c.cd(PROJECT_ROOT):
+            c.run('mkdir -p dumps')
+            c.run(f'sudo -u {user} pg_dump {db_name} > {dump_name} | bzip2 -9 > {dump_name}.bz2')
 
 
 @task
-def restore_db():
+def restoredb(c):
     db_user = dj_settings.DATABASES['default']['USER']
     db_name = dj_settings.DATABASES['default']['NAME']
 
-    with cd(PROJECT_ROOT):
-        with lcd('dumps'):
-            last_dump = 'dumps/' + local('ls -1tr', capture=True).stdout.strip().split('\n')[-1]
-        local(f'sudo psql -U {db_user} -d {db_name} < {last_dump}')
+    with c.prefix(VIRTUAL_ENV_ACTIVATE):
+        with c.cd(PROJECT_ROOT):
+            with c.lcd('dumps'):
+                last_dump = 'dumps/' + c.run('ls -1tr', capture=True).stdout.strip().split('\n')[-1]
+            c.run(f'sudo psql -U {db_user} -d {db_name} < {last_dump}')
+
+
+#
+#
+@task
+def deploylocal(c, branch=None):
+    with c.prefix(VIRTUAL_ENV_ACTIVATE):
+        branch = branch or 'main'
+
+        c.run('git checkout %s && git pull' % branch)
+        c.run('pip3 install -r requirements.txt')
+        c.run('./manage.py migrate')
+        c.run('./manage.py collectstatic --noinput')
 
 
 @task
-def deploy_local(branch=None):
-    branch = branch or 'main'
-
-    local('git checkout %s && git pull' % branch)
-    local('pip3 install -r requirements.txt')
-    local('./manage.py migrate')
-    local('./manage.py collectstatic --noinput')
+def check(c):
+    with c.prefix(VIRTUAL_ENV_ACTIVATE):
+        # c.run('python manage.py test')
+        c.run('python manage.py check')
+        c.run('time flake8 ./Api ./core ./Manager ./Public')
 
 
 @task
-def check():
-    # local('python manage.py test')
-    local('python manage.py check')
-    local('time flake8 ./Api ./core ./Manager ./Public')
-
-
-@task
-def create_graph_models(*args):
+def creategraphmodels(c, *args):
     date = datetime.now().strftime("%Y-%m-%d_%H%M")
     dot_file_name = f'graphs/project_{date}.dot'
 
@@ -84,6 +86,7 @@ def create_graph_models(*args):
     if args:
         models = f' -I {",".join(args)} '
 
-    with cd(PROJECT_ROOT):
-        local('mkdir -p graphs')
-        local(f'./manage.py graph_models -a {models} -o {dot_file_name}')
+    with c.prefix(VIRTUAL_ENV_ACTIVATE):
+        with c.cd(PROJECT_ROOT):
+            c.run('mkdir -p graphs')
+            c.run(f'./manage.py graph_models -a {models} -o {dot_file_name}')
