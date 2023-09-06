@@ -1,0 +1,184 @@
+[
+  {
+    "model": "Colors.postcolor",
+    "pk": 1,
+    "fields": {
+      "created_stamp": "2023-09-06T21:06:13.927Z",
+      "modified_stamp": "2023-09-06T21:06:13.927Z",
+      "archived_stamp": null,
+      "created_by": null,
+      "modified_by": null,
+      "archived_by": null,
+      "name": "White",
+      "value": "#FFFFFF"
+    }
+  },
+  {
+    "model": "Colors.postcolor",
+    "pk": 2,
+    "fields": {
+      "created_stamp": "2023-09-06T21:06:14.009Z",
+      "modified_stamp": "2023-09-06T21:06:14.009Z",
+      "archived_stamp": null,
+      "created_by": null,
+      "modified_by": null,
+      "archived_by": null,
+      "name": "Radar blip green c",
+      "value": "#9EFB7C"
+    }
+  },
+  {
+    "model": "Colors.postcolor",
+    "pk": 3,
+    "fields": {
+      "created_stamp": "2023-09-06T21:06:14.071Z",
+      "modified_stamp": "2023-09-06T21:06:14.072Z",
+      "archived_stamp": null,
+      "created_by": null,
+      "modified_by": null,
+      "archived_by": null,
+      "name": "Techno green",
+      "value": "#6AB056"
+    }
+  },
+  {
+    "model": "Colors.postcolor",
+    "pk": 4,
+    "fields": {
+      "created_stamp": "2023-09-06T21:06:14.130Z",
+      "modified_stamp": "2023-09-06T21:06:14.130Z",
+      "archived_stamp": null,
+      "created_by": null,
+      "modified_by": null,
+      "archived_by": null,
+      "name": "Nyanza",
+      "value": "#E6FFDE"
+    }
+  },
+  {
+    "model": "Colors.postcolor",
+    "pk": 5,
+    "fields": {
+      "created_stamp": "2023-09-06T21:06:14.181Z",
+      "modified_stamp": "2023-09-06T21:06:14.181Z",
+      "archived_stamp": null,
+      "created_by": null,
+      "modified_by": null,
+      "archived_by": null,
+      "name": "Breeze of green",
+      "value": "#CDFFBE"
+    }
+  },
+  {
+    "model": "Colors.postcolor",
+    "pk": 6,
+    "fields": {
+      "created_stamp": "2023-09-06T21:06:14.233Z",
+      "modified_stamp": "2023-09-06T21:06:14.233Z",
+      "archived_stamp": null,
+      "created_by": null,
+      "modified_by": null,
+      "archived_by": null,
+      "name": "Pink elephants",
+      "value": "#FF96F3"
+    }
+  },
+  {
+    "model": "Colors.postcolor",
+    "pk": 7,
+    "fields": {
+      "created_stamp": "2023-09-06T21:06:14.270Z",
+      "modified_stamp": "2023-09-06T21:06:14.271Z",
+      "archived_stamp": null,
+      "created_by": null,
+      "modified_by": null,
+      "archived_by": null,
+      "name": "Soft purple",
+      "value": "#A669B3"
+    }
+  },
+  {
+    "model": "Colors.postcolor",
+    "pk": 8,
+    "fields": {
+      "created_stamp": "2023-09-06T21:06:14.313Z",
+      "modified_stamp": "2023-09-06T21:06:14.313Z",
+      "archived_stamp": null,
+      "created_by": null,
+      "modified_by": null,
+      "archived_by": null,
+      "name": "Placebo fuchsia",
+      "value": "#FAE5FF"
+    }
+  },
+  {
+    "model": "Colors.postcolor",
+    "pk": 9,
+    "fields": {
+      "created_stamp": "2023-09-06T21:06:14.323Z",
+      "modified_stamp": "2023-09-06T21:06:14.323Z",
+      "archived_stamp": null,
+      "created_by": null,
+      "modified_by": null,
+      "archived_by": null,
+      "name": "Sassy pink",
+      "value": "#F6CBFF"
+    }
+  },
+  {
+    "model": "Colors.postcolor",
+    "pk": 10,
+    "fields": {
+      "created_stamp": "2023-09-06T21:06:14.339Z",
+      "modified_stamp": "2023-09-06T21:06:14.339Z",
+      "archived_stamp": null,
+      "created_by": null,
+      "modified_by": null,
+      "archived_by": null,
+      "name": "Jacaranda pink",
+      "value": "#CC66FF"
+    }
+  },
+  {
+    "model": "Colors.postcolor",
+    "pk": 11,
+    "fields": {
+      "created_stamp": "2023-09-06T21:06:14.352Z",
+      "modified_stamp": "2023-09-06T21:06:14.352Z",
+      "archived_stamp": null,
+      "created_by": null,
+      "modified_by": null,
+      "archived_by": null,
+      "name": "Royal lavender",
+      "value": "#7147B3"
+    }
+  },
+  {
+    "model": "Colors.postcolor",
+    "pk": 12,
+    "fields": {
+      "created_stamp": "2023-09-06T21:06:14.366Z",
+      "modified_stamp": "2023-09-06T21:06:14.366Z",
+      "archived_stamp": null,
+      "created_by": null,
+      "modified_by": null,
+      "archived_by": null,
+      "name": "Lavender savor",
+      "value": "#E8D9FF"
+    }
+  },
+  {
+    "model": "Colors.postcolor",
+    "pk": 13,
+    "fields": {
+      "created_stamp": "2023-09-06T21:06:14.375Z",
+      "modified_stamp": "2023-09-06T21:06:14.375Z",
+      "archived_stamp": null,
+      "created_by": null,
+      "modified_by": null,
+      "archived_by": null,
+      "name": "Light violet",
+      "value": "#D1B3FF"
+    }
+  }
+]
