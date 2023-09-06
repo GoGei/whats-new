@@ -1,4 +1,4 @@
-from settings import *
+from default_settings import *
 
 SECRET_KEY = 'test'
 TEST_RUNNER = os.environ.get("TEST_RUNNER", "django.test.runner.DiscoverRunner")

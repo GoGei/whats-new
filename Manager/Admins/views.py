@@ -74,7 +74,7 @@ def admins_reset_password(request):
 
     if form_body.is_valid():
         form_body.save()
-        messages.success(request, _(f'Your password was successfully set'))
+        messages.success(request, _('Your password was successfully set'))
         login(request, admin)
         return redirect(reverse('manager-index', host='manager'))
 

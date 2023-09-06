@@ -48,7 +48,7 @@ class Post(UUIDMixin, CrmMixin, SlugifyMixin, TranslateMixin):
         return qs
 
 
-class PostComment(CrmMixin, MPTTModel):
+class PostComment(CrmMixin, MPTTModel, UUIDMixin):
     author = models.ForeignKey('User.User', on_delete=models.PROTECT)
     post = models.ForeignKey('Post.Post', on_delete=models.PROTECT)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')

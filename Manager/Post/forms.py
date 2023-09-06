@@ -58,7 +58,7 @@ class PostForm(forms.ModelForm):
     )
     author = forms.ModelChoiceField(
         label=_('Author'),
-        queryset=User.objects.authors().filter(is_active=True),
+        queryset=User.objects.authors_or_admins().filter(is_active=True),
         empty_label=_('Select an author'),
         widget=forms.Select(
             attrs={'class': 'form-control select2',
