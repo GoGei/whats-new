@@ -81,6 +81,12 @@ class UserTests(TestCase):
         self.assertFalse(superuser in authors)
         self.assertTrue(author in authors)
 
+        authors_or_admins = User.objects.authors_or_admins()
+        self.assertFalse(user in authors_or_admins)
+        self.assertTrue(staff in authors_or_admins)
+        self.assertTrue(superuser in authors_or_admins)
+        self.assertTrue(author in authors_or_admins)
+
     def test_create_superuser(self):
         email = 'email@example.com'
         password = str(uuid.uuid4())
