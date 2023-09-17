@@ -1,4 +1,4 @@
-from settings import *
+from default_settings import *
 
 SECRET_KEY = 'your-secret-key'
 
